@@ -1,6 +1,7 @@
 import 'package:contacts_app/l10n/app_localizations.dart';
 import 'package:contacts_app/model/contact_sort_field.dart';
 import 'package:contacts_app/model/contact_summary.dart';
+import 'package:contacts_app/shared/app_text_style.dart';
 import 'package:contacts_app/shared/widgets/divider.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -18,20 +19,31 @@ class ContactListScreen extends StatelessWidget {
             ),
             backgroundColor: CupertinoColors.systemBackground,
           ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate(
-              childCount: _mockContacts.length,
-              (context, index) {
-                final contact = _mockContacts[index];
-                return Column(
-                  children: [
-                    _contactListItem(context, contact),
-                    const Divider(),
-                  ],
-                );
-              },
+          if (_mockContacts.isEmpty) ...[
+            SliverFillRemaining(
+              child: Center(
+                child: Text(
+                  AppLocalizations.of(context).noContacts,
+                  style: AppTextStyle.emptyLabel(context),
+                ),
+              ),
             ),
-          ),
+          ] else ...[
+            SliverList(
+              delegate: SliverChildBuilderDelegate(
+                childCount: _mockContacts.length,
+                (context, index) {
+                  final contact = _mockContacts[index];
+                  return Column(
+                    children: [
+                      _contactListItem(context, contact),
+                      const Divider(),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ],
         ],
       ),
     );

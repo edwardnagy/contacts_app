@@ -4,6 +4,10 @@
     "@contacts": {
         "description": "The title of the contacts page."
     },
+    "noContacts": "No Contacts",
+    "@noContacts": {
+        "description": "The message to display when there are no contacts."
+    },
     "noName": "No Name",
     "@noName": {
         "description": "The name to display when the contact has no name."
