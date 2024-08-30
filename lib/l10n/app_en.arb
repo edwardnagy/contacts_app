@@ -15,5 +15,13 @@
     "newContact": "New Contact",
     "@newContact": {
         "description": "The title of the new contact screen."
+    },
+    "firstNamePlaceholder": "First name",
+    "@firstNamePlaceholder": {
+        "description": "The placeholder for the first name field."
+    },
+    "lastNamePlaceholder": "Last name",
+    "@lastNamePlaceholder": {
+        "description": "The placeholder for the last name field."
     }
 }

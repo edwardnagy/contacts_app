@@ -2,8 +2,8 @@
 /// `8.0` is the base padding value.
 ///
 /// See: https://material.io/design/layout/spacing-methods.html#spacing
-class Padding {
-  const Padding._();
+class Spacing {
+  const Spacing._();
 
   static const base = 8.0;
 
