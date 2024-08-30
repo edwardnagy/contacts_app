@@ -22,5 +22,4 @@ dev_dependencies:
   go_router_builder: ^2.7.1
 
 flutter:
-  uses-material-design: true
   generate: true
