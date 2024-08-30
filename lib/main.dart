@@ -1,5 +1,5 @@
 import 'package:contacts_app/l10n/app_localizations.dart';
-import 'package:contacts_app/screen/contact_list_screen.dart';
+import 'package:contacts_app/router/router.dart';
 import 'package:flutter/cupertino.dart';
 
 void main() {
@@ -11,10 +11,10 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoApp(
+    return CupertinoApp.router(
+      routerConfig: appRouter,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,
-      home: ContactListScreen(),
     );
   }
 }
