@@ -1,0 +1,7 @@
+{
+    "@@locale": "en",
+    "contacts": "Contacts",
+    "@contacts": {
+        "description": "The title of the contacts page"
+    }
+}

@@ -1,3 +1,4 @@
+import 'package:contacts_app/l10n/app_localizations.dart';
 import 'package:flutter/cupertino.dart';
 
 class ContactListScreen extends StatelessWidget {
@@ -5,11 +6,13 @@ class ContactListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const CupertinoPageScaffold(
+    return CupertinoPageScaffold(
       navigationBar: CupertinoNavigationBar(
-        middle: Text('Contacts'),
+        middle: Text(
+          AppLocalizations.of(context).contacts,
+        ),
       ),
-      child: Placeholder(),
+      child: const Placeholder(),
     );
   }
 }
