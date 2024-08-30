@@ -2,6 +2,10 @@
     "@@locale": "en",
     "contacts": "Contacts",
     "@contacts": {
-        "description": "The title of the contacts page"
+        "description": "The title of the contacts page."
+    },
+    "noName": "No Name",
+    "@noName": {
+        "description": "The name to display when the contact has no name."
     }
 }
