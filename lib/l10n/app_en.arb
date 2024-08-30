@@ -2,7 +2,7 @@
     "@@locale": "en",
     "contacts": "Contacts",
     "@contacts": {
-        "description": "The title of the contacts page."
+        "description": "The title of the contacts screen."
     },
     "noContacts": "No Contacts",
     "@noContacts": {
@@ -11,5 +11,9 @@
     "noName": "No Name",
     "@noName": {
         "description": "The name to display when the contact has no name."
+    },
+    "newContact": "New Contact",
+    "@newContact": {
+        "description": "The title of the new contact screen."
     }
 }
