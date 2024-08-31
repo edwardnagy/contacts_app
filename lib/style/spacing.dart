@@ -15,5 +15,5 @@ class Spacing {
   static const x3 = base * 3;
   static const x4 = base * 4;
 
-  static const firstKeyline = x1_5;
+  static const firstKeyline = x2;
 }
