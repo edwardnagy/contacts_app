@@ -58,7 +58,7 @@ class PhoneNumberEditField extends StatelessWidget {
             constraints: BoxConstraints(
               minWidth: min(
                 // Eye-balled value to align phone labels to the end.
-                MediaQuery.textScalerOf(context).scale(55),
+                MediaQuery.textScalerOf(context).scale(52),
                 labelMaxWidth,
               ),
               maxWidth: labelMaxWidth,
@@ -82,7 +82,8 @@ class PhoneNumberEditField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const fieldHeight = 50.0;
+    // the normal height of a CupertinoTextFormFieldRow
+    const fieldHeight = 46.0;
 
     return CupertinoTextFormFieldRow(
       padding: EdgeInsetsDirectional.zero,
