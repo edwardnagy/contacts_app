@@ -1,5 +1,7 @@
 import 'package:contacts_app/l10n/app_localizations.dart';
-import 'package:contacts_app/shared/constants/spacing.dart';
+import 'package:contacts_app/model/phone_number.dart';
+import 'package:contacts_app/shared/contact_data_form/phone_numbers_form_section.dart';
+import 'package:contacts_app/style/spacing.dart';
 import 'package:flutter/cupertino.dart';
 
 class NewContactScreen extends StatefulWidget {
@@ -37,10 +39,9 @@ class _NewContactScreenState extends State<NewContactScreen> {
             hasLeading: false,
             children: [
               CupertinoTextFormFieldRow(
-                padding: const EdgeInsets.symmetric(
+                padding: const EdgeInsetsDirectional.symmetric(
                   vertical: 6.0, // 6.0 is the default vertical padding
-                  horizontal: Spacing.firstKeyline,
-                ),
+                ).copyWith(start: Spacing.firstKeyline),
                 autofocus: true,
                 focusNode: _firstNameFocusNode,
                 placeholder: AppLocalizations.of(context).firstNamePlaceholder,
@@ -52,10 +53,9 @@ class _NewContactScreenState extends State<NewContactScreen> {
                 onFieldSubmitted: (_) => _lastNameFocusNode.requestFocus(),
               ),
               CupertinoTextFormFieldRow(
-                padding: const EdgeInsets.symmetric(
+                padding: const EdgeInsetsDirectional.symmetric(
                   vertical: 6.0, // 6.0 is the default vertical padding
-                  horizontal: Spacing.firstKeyline,
-                ),
+                ).copyWith(start: Spacing.firstKeyline),
                 focusNode: _lastNameFocusNode,
                 placeholder: AppLocalizations.of(context).lastNamePlaceholder,
                 textCapitalization: TextCapitalization.words,
@@ -67,6 +67,30 @@ class _NewContactScreenState extends State<NewContactScreen> {
                 onFieldSubmitted: (_) => _firstNameFocusNode.requestFocus(),
               ),
             ],
+          ),
+          PhoneNumbersFormSection(
+            phoneNumbers: const [
+              // TODO: phoneNumbers
+              PhoneNumber(
+                number: '555-555-5555',
+                label: 'mobile',
+              ),
+              PhoneNumber(
+                number: '555-555-5555',
+                label: 'home',
+              ),
+              PhoneNumber(
+                number: '555-555-5555',
+                label: 'work',
+              ),
+              PhoneNumber(
+                number: '555-555-5555',
+                label: 'other',
+              ),
+            ],
+            onPhoneNumbersChanged: (_) {
+              // TODO: onPhoneNumbersChanged
+            },
           ),
         ],
       ),

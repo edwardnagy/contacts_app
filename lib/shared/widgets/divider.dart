@@ -2,12 +2,12 @@ import 'package:flutter/cupertino.dart';
 
 /// Built based on how the divider is implemented in [CupertinoListSection].
 class Divider extends StatelessWidget {
-  final double leadingIndent;
-
   const Divider({
     super.key,
     this.leadingIndent = 20,
   });
+
+  final double leadingIndent;
 
   @override
   Widget build(BuildContext context) {
@@ -16,7 +16,7 @@ class Divider extends StatelessWidget {
     return Container(
       margin: EdgeInsets.only(left: leadingIndent),
       height: dividerHeight,
-      color: CupertinoColors.separator,
+      color: CupertinoColors.separator.resolveFrom(context),
     );
   }
 }

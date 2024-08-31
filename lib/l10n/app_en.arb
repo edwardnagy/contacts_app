@@ -1,5 +1,13 @@
 {
     "@@locale": "en",
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "The label for the cancel button."
+    },
+    "done": "Done",
+    "@done": {
+        "description": "The label for the done button."
+    },
     "contacts": "Contacts",
     "@contacts": {
         "description": "The title of the contacts screen."
@@ -23,5 +31,33 @@
     "lastNamePlaceholder": "Last name",
     "@lastNamePlaceholder": {
         "description": "The placeholder for the last name field."
+    },
+    "addPhone": "add phone",
+    "@addPhone": {
+        "description": "The label for the add phone button."
+    },
+    "phonePlaceholder": "Phone",
+    "@phonePlaceholder": {
+        "description": "The placeholder for the phone field."
+    },
+    "phoneLabelMobile": "mobile",
+    "@phoneLabelMobile": {
+        "description": "The label for the mobile phone type."
+    },
+    "phoneLabelHome": "home",
+    "@phoneLabelHome": {
+        "description": "The label for the home phone type."
+    },
+    "phoneLabelWork": "work",
+    "@phoneLabelWork": {
+        "description": "The label for the work phone type."
+    },
+    "phoneLabelOther": "other",
+    "@phoneLabelOther": {
+        "description": "The label for the other phone type."
+    },
+    "phoneLabelPickerTitle": "Label",
+    "@phoneLabelPickerTitle": {
+        "description": "The title of the phone label picker."
     }
 }

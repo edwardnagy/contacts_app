@@ -3,7 +3,7 @@ import 'package:contacts_app/model/contact_sort_field.dart';
 import 'package:contacts_app/model/contact_summary.dart';
 import 'package:contacts_app/router/routes.dart';
 import 'package:contacts_app/screen/contact_list/contact_list_item.dart';
-import 'package:contacts_app/shared/app_text_style.dart';
+import 'package:contacts_app/style/app_text_style.dart';
 import 'package:contacts_app/shared/widgets/divider.dart';
 import 'package:flutter/cupertino.dart';
 
