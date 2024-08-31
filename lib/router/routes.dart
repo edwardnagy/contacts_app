@@ -8,7 +8,9 @@ part 'routes.g.dart';
 @TypedGoRoute<ContactListRoute>(
   path: '/',
   routes: [
-    TypedGoRoute<NewContactRoute>(path: 'new'),
+    TypedGoRoute<NewContactRoute>(
+      path: 'new-contact',
+    ),
   ],
 )
 @immutable

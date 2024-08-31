@@ -15,7 +15,7 @@ RouteBase get $contactListRoute => GoRouteData.$route(
       factory: $ContactListRouteExtension._fromState,
       routes: [
         GoRouteData.$route(
-          path: 'new',
+          path: 'new-contact',
           factory: $NewContactRouteExtension._fromState,
         ),
       ],
@@ -42,7 +42,7 @@ extension $NewContactRouteExtension on NewContactRoute {
   static NewContactRoute _fromState(GoRouterState state) => NewContactRoute();
 
   String get location => GoRouteData.$location(
-        '/new',
+        '/new-contact',
       );
 
   void go(BuildContext context) => context.go(location);
