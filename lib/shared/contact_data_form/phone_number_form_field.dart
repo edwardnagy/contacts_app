@@ -9,10 +9,12 @@ import 'package:flutter/cupertino.dart';
 class PhoneNumberFormField extends StatelessWidget {
   const PhoneNumberFormField({
     super.key,
+    required this.focusNode,
     required this.initialPhoneNumber,
     required this.onPhoneNumberChanged,
   });
 
+  final FocusNode? focusNode;
   final PhoneNumber initialPhoneNumber;
   final ValueChanged<PhoneNumber> onPhoneNumberChanged;
 
@@ -35,6 +37,7 @@ class PhoneNumberFormField extends StatelessWidget {
           const SizedBox(width: Spacing.x1),
         ],
       ),
+      focusNode: focusNode,
       placeholder: AppLocalizations.of(context).phonePlaceholder,
       placeholderStyle: TextStyle(
         color: CupertinoColors.secondaryLabel.resolveFrom(context),
