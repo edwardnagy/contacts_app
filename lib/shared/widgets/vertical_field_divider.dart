@@ -1,7 +1,12 @@
 import 'package:flutter/cupertino.dart';
 
-class VerticalDivider extends StatelessWidget {
-  const VerticalDivider({super.key});
+class VerticalFieldDivider extends StatelessWidget {
+  const VerticalFieldDivider({
+    super.key,
+    this.height = 46.0, // the height of a CupertinoTextFormFieldRow
+  });
+
+  final double height;
 
   @override
   Widget build(BuildContext context) {
@@ -9,14 +14,15 @@ class VerticalDivider extends StatelessWidget {
 
     return Container(
       width: dividerWidth,
+      height: height,
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors: [
-            CupertinoColors.separator.resolveFrom(context),
+            CupertinoColors.systemGrey2.resolveFrom(context),
             CupertinoColors.separator.resolveFrom(context),
             CupertinoColors.transparent,
           ],
-          stops: const [0.0, 0.3, 1.0],
+          stops: const [0, 0.6, 1.0],
           begin: Alignment.bottomCenter,
           end: Alignment.topCenter,
         ),

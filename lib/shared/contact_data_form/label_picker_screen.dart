@@ -1,32 +1,35 @@
 import 'package:contacts_app/l10n/app_localizations.dart';
-import 'package:contacts_app/shared/constants/phone_labels.dart';
 import 'package:flutter/cupertino.dart';
 
-class PhoneLabelPickerScreen extends StatelessWidget {
-  const PhoneLabelPickerScreen({
+/// A screen that allows the user to pick a label for a field (e.g., address).
+class LabelPickerScreen extends StatelessWidget {
+  const LabelPickerScreen({
     super.key,
     required this.initialLabel,
+    required this.labels,
   });
 
   final String? initialLabel;
+  final List<String> labels;
 
+  /// Shows the label picker screen.
+  ///
+  /// Returns the selected label or `null` if the user cancels the operation.
   static Future<String?> show(
     BuildContext context, {
     required String? initialLabel,
+    required List<String> labels,
   }) {
     return Navigator.push(
       context,
       CupertinoPageRoute(
         fullscreenDialog: true,
-        builder: (context) => PhoneLabelPickerScreen(
+        builder: (context) => LabelPickerScreen(
           initialLabel: initialLabel,
+          labels: labels,
         ),
       ),
     );
-  }
-
-  void _onPhoneLabelSelected(BuildContext context, String label) {
-    Navigator.pop(context, label);
   }
 
   @override
@@ -35,20 +38,21 @@ class PhoneLabelPickerScreen extends StatelessWidget {
       backgroundColor:
           CupertinoColors.systemGroupedBackground.resolveFrom(context),
       navigationBar: CupertinoNavigationBar(
-        middle: Text(AppLocalizations.of(context).phoneLabelPickerTitle),
+        middle: Text(AppLocalizations.of(context).labelPickerTitle),
       ),
       child: ListView(
         children: [
           CupertinoListSection(
             topMargin: 0,
-            children: getPredefinedPhoneLabels(context).map(
+            hasLeading: false,
+            children: labels.map(
               (label) {
                 final isSelected = label == initialLabel;
                 return CupertinoListTile(
                   title: Text(label),
                   trailing:
                       isSelected ? const Icon(CupertinoIcons.checkmark) : null,
-                  onTap: () => _onPhoneLabelSelected(context, label),
+                  onTap: () => Navigator.pop(context, label),
                 );
               },
             ).toList(),

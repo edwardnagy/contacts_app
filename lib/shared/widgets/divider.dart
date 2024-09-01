@@ -14,7 +14,7 @@ class Divider extends StatelessWidget {
     final dividerHeight = 1.0 / MediaQuery.devicePixelRatioOf(context);
 
     return Container(
-      margin: EdgeInsets.only(left: leadingIndent),
+      margin: EdgeInsetsDirectional.only(start: leadingIndent),
       height: dividerHeight,
       color: CupertinoColors.separator.resolveFrom(context),
     );

@@ -36,6 +36,26 @@
     "@lastNamePlaceholder": {
         "description": "The placeholder for the last name field."
     },
+    "labelPickerTitle": "Label",
+    "@labelPickerTitle": {
+        "description": "The title of the phone label picker."
+    },
+    "labelMobile": "mobile",
+    "@labelMobile": {
+        "description": "The label for the mobile phone number."
+    },
+    "labelHome": "home",
+    "@labelHome": {
+        "description": "The label for the home phone number or address."
+    },
+    "labelWork": "work",
+    "@labelWork": {
+        "description": "The label for the work phone number or address."
+    },
+    "labelOther": "other",
+    "@labelOther": {
+        "description": "The label for the other phone number or address."
+    },
     "addPhone": "add phone",
     "@addPhone": {
         "description": "The label for the add phone button."
@@ -44,24 +64,24 @@
     "@phonePlaceholder": {
         "description": "The placeholder for the phone field."
     },
-    "phoneLabelMobile": "mobile",
-    "@phoneLabelMobile": {
-        "description": "The label for the mobile phone type."
+    "addAddress": "add address",
+    "@addAddress": {
+        "description": "The label for the add address button."
     },
-    "phoneLabelHome": "home",
-    "@phoneLabelHome": {
-        "description": "The label for the home phone type."
+    "streetPlaceholder": "Street",
+    "@streetPlaceholder": {
+        "description": "The placeholder for the street field."
     },
-    "phoneLabelWork": "work",
-    "@phoneLabelWork": {
-        "description": "The label for the work phone type."
+    "cityPlaceholder": "City",
+    "@cityPlaceholder": {
+        "description": "The placeholder for the city field."
     },
-    "phoneLabelOther": "other",
-    "@phoneLabelOther": {
-        "description": "The label for the other phone type."
+    "statePlaceholder": "State",
+    "@statePlaceholder": {
+        "description": "The placeholder for the state field."
     },
-    "phoneLabelPickerTitle": "Label",
-    "@phoneLabelPickerTitle": {
-        "description": "The title of the phone label picker."
+    "zipCodePlaceholder": "Postcode",
+    "@zipCodePlaceholder": {
+        "description": "The placeholder for the ZIP code field."
     }
 }

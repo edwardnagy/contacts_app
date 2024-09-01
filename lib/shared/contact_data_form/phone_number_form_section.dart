@@ -7,34 +7,27 @@ import 'package:contacts_app/shared/contact_data_form/phone_number_form_field.da
 import 'package:flutter/cupertino.dart';
 
 /// A form section that allows the user to add and remove phone numbers.
-class PhoneNumbersFormSection extends StatefulWidget {
-  const PhoneNumbersFormSection({
+class PhoneNumberFormSection extends StatefulWidget {
+  const PhoneNumberFormSection({
     super.key,
-    required this.phoneNumbers,
+    required this.initialPhoneNumbers,
     required this.onPhoneNumbersChanged,
   });
 
-  final List<PhoneNumber> phoneNumbers;
+  final List<PhoneNumber> initialPhoneNumbers;
   final ValueChanged<List<PhoneNumber>> onPhoneNumbersChanged;
 
   @override
-  State<PhoneNumbersFormSection> createState() =>
-      _PhoneNumbersFormSectionState();
+  State<PhoneNumberFormSection> createState() => _PhoneNumberFormSectionState();
 }
 
-class _PhoneNumbersFormSectionState extends State<PhoneNumbersFormSection> {
-  late var _phoneNumbers = widget.phoneNumbers;
-
-  @override
-  void didUpdateWidget(covariant PhoneNumbersFormSection oldWidget) {
-    super.didUpdateWidget(oldWidget);
-    _phoneNumbers = widget.phoneNumbers;
-  }
+class _PhoneNumberFormSectionState extends State<PhoneNumberFormSection> {
+  late var _phoneNumbers = widget.initialPhoneNumbers;
 
   void _onNewPhoneNumberAdded(BuildContext context) {
-    // Determine the phone label for the new phone number. If the last phone
-    // number has a label, use the next label in the list. Otherwise, use the
-    // first label in the list.
+    // Determine the label for the new phone number. If the last phone number
+    // has a label, use the next label in the list. Otherwise, use the first
+    // label in the list.
     final phoneLabels = getPredefinedPhoneLabels(context);
     final lastUsedPhoneLabelIndex =
         phoneLabels.indexOf(_phoneNumbers.lastOrNull?.label ?? '');
@@ -68,23 +61,17 @@ class _PhoneNumbersFormSectionState extends State<PhoneNumbersFormSection> {
   Widget build(BuildContext context) {
     return AnimatedListFormSection(
       initialItemCount: _phoneNumbers.length,
-      itemBuilder: (context, index) {
-        final phoneNumber = _phoneNumbers[index];
-        return PhoneNumberFormField(
-          phoneNumber: phoneNumber,
-          onPhoneNumberRemoved: () {
-            _onPhoneNumberRemoved(index);
-          },
-          onPhoneNumberChanged: (phoneNumber) {
-            _onPhoneNumberChanged(index, phoneNumber);
-          },
-        );
-      },
+      itemBuilder: (context, index) => PhoneNumberFormField(
+        initialPhoneNumber: _phoneNumbers[index],
+        onPhoneNumberChanged: (phoneNumber) {
+          _onPhoneNumberChanged(index, phoneNumber);
+        },
+      ),
+      addItemButtonLabel: AppLocalizations.of(context).addPhone,
       onItemAdded: () {
         _onNewPhoneNumberAdded(context);
       },
       onItemRemoved: _onPhoneNumberRemoved,
-      addItemButtonLabel: AppLocalizations.of(context).addPhone,
     );
   }
 }
