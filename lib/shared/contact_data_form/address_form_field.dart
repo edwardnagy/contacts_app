@@ -69,6 +69,10 @@ class _AddressFormFieldState extends State<AddressFormField> {
             ),
             decoration: const BoxDecoration(),
             keyboardType: TextInputType.streetAddress,
+            textInputAction: TextInputAction.unspecified,
+            onEditingComplete: () {
+              FocusScope.of(context).nextFocus();
+            },
             onChanged: onChanged,
           ),
         ),

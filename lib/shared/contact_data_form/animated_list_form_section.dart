@@ -32,19 +32,28 @@ class _AnimatedListFormSectionState extends State<AnimatedListFormSection> {
   late var _itemCount = widget.initialItemCount;
   int? _openActionCellIndex;
   late final _actionCellKeys = List.generate(_itemCount, (_) => GlobalKey());
+  late final _focusScopeNodes =
+      List.generate(_itemCount, (_) => _buildFocusScopeNode());
 
   final _animatedListKey = GlobalKey<AnimatedListState>();
   final _swipeActionController = SwipeActionController();
 
-  @override
-  void dispose() {
-    _swipeActionController.dispose();
-    super.dispose();
-  }
+  FocusScopeNode _buildFocusScopeNode() => FocusScopeNode(
+        debugLabel: 'form field',
+        traversalEdgeBehavior: TraversalEdgeBehavior.parentScope,
+      );
 
   void _addFieldToList() {
     widget.onItemAdded();
     _actionCellKeys.add(GlobalKey());
+
+    final newFocusScopeNode = _buildFocusScopeNode();
+    _focusScopeNodes.add(newFocusScopeNode);
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      // Focus the new field after it has been created.
+      newFocusScopeNode.nextFocus();
+    });
+
     _animatedListKey.currentState?.insertItem(
       _itemCount,
       duration: AnimationDuration.short,
@@ -64,6 +73,9 @@ class _AnimatedListFormSectionState extends State<AnimatedListFormSection> {
     widget.onItemRemoved(index);
     await swipeAnimationCompletion;
     _actionCellKeys.removeAt(index);
+    _focusScopeNodes.removeAt(index)
+      ..parent?.unfocus()
+      ..dispose();
     _animatedListKey.currentState?.removeItem(
       index,
       (context, animation) => removedFieldWidget,
@@ -78,17 +90,22 @@ class _AnimatedListFormSectionState extends State<AnimatedListFormSection> {
     int index, {
     required VoidCallback? onRemovePressed,
   }) {
-    final removeIconButton = CupertinoButton(
-      padding: EdgeInsets.zero,
-      onPressed: onRemovePressed,
-      child: Padding(
-        padding: const EdgeInsetsDirectional.symmetric(
-          horizontal: Spacing.firstKeyline,
-        ),
-        child: IconWithBackground(
-          CupertinoIcons.minus_circle_fill,
-          iconColor: CupertinoColors.systemRed.resolveFrom(context),
-          backgroundColor: CupertinoColors.white,
+    final removeIconButton = Focus(
+      // the button should not be focusable, only the fields
+      canRequestFocus: false,
+      descendantsAreFocusable: false,
+      child: CupertinoButton(
+        padding: EdgeInsets.zero,
+        onPressed: onRemovePressed,
+        child: Padding(
+          padding: const EdgeInsetsDirectional.symmetric(
+            horizontal: Spacing.firstKeyline,
+          ),
+          child: IconWithBackground(
+            CupertinoIcons.minus_circle_fill,
+            iconColor: CupertinoColors.systemRed.resolveFrom(context),
+            backgroundColor: CupertinoColors.white,
+          ),
         ),
       ),
     );
@@ -145,36 +162,55 @@ class _AnimatedListFormSectionState extends State<AnimatedListFormSection> {
       child: swipeActionCell,
     );
 
-    return tapRegionToCancelSwipeAction;
+    final focusableField = FocusScope(
+      node: _focusScopeNodes[index],
+      child: tapRegionToCancelSwipeAction,
+    );
+
+    return focusableField;
   }
 
   Widget _addFieldButton(BuildContext context) {
-    return CupertinoButton(
-      onPressed: _addFieldToList,
-      padding: EdgeInsets.zero,
-      child: CupertinoFormRow(
-        padding: EdgeInsetsDirectional.zero,
-        prefix: Padding(
-          padding: const EdgeInsetsDirectional.symmetric(
-            horizontal: Spacing.firstKeyline,
+    return Focus(
+      // the button should not be focusable, only the fields
+      canRequestFocus: false,
+      descendantsAreFocusable: false,
+      child: CupertinoButton(
+        onPressed: _addFieldToList,
+        padding: EdgeInsets.zero,
+        child: CupertinoFormRow(
+          padding: EdgeInsetsDirectional.zero,
+          prefix: Padding(
+            padding: const EdgeInsetsDirectional.symmetric(
+              horizontal: Spacing.firstKeyline,
+            ),
+            child: IconWithBackground(
+              CupertinoIcons.plus_circle_fill,
+              iconColor: CupertinoColors.systemGreen.resolveFrom(context),
+              backgroundColor: CupertinoColors.white,
+            ),
           ),
-          child: IconWithBackground(
-            CupertinoIcons.plus_circle_fill,
-            iconColor: CupertinoColors.systemGreen.resolveFrom(context),
-            backgroundColor: CupertinoColors.white,
-          ),
-        ),
-        child: Align(
-          alignment: Alignment.centerLeft,
-          child: Text(
-            widget.addItemButtonLabel,
-            style: TextStyle(
-              color: CupertinoColors.label.resolveFrom(context),
+          child: Align(
+            alignment: Alignment.centerLeft,
+            child: Text(
+              widget.addItemButtonLabel,
+              style: TextStyle(
+                color: CupertinoColors.label.resolveFrom(context),
+              ),
             ),
           ),
         ),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    _swipeActionController.dispose();
+    for (final focusScopeNode in _focusScopeNodes) {
+      focusScopeNode.dispose();
+    }
+    super.dispose();
   }
 
   @override

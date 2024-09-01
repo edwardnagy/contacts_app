@@ -23,10 +23,6 @@ class PhoneNumberFormSection extends StatefulWidget {
 
 class _PhoneNumberFormSectionState extends State<PhoneNumberFormSection> {
   late var _phoneNumbers = widget.initialPhoneNumbers;
-  late final _focusNodes = List.generate(
-    _phoneNumbers.length,
-    (_) => FocusNode(),
-  );
 
   void _onNewPhoneNumberAdded(BuildContext context) {
     // Determine the label for the new phone number. If the last phone number
@@ -45,11 +41,6 @@ class _PhoneNumberFormSectionState extends State<PhoneNumberFormSection> {
     final updatedPhoneNumbers = [..._phoneNumbers, newPhoneNumber];
     _phoneNumbers = updatedPhoneNumbers;
     widget.onPhoneNumbersChanged(updatedPhoneNumbers);
-
-    // Create a new focus node for the new phone number.
-    final newFocusNode = FocusNode();
-    _focusNodes.add(newFocusNode);
-    newFocusNode.requestFocus();
   }
 
   void _onPhoneNumberChanged(int index, PhoneNumber phoneNumber) {
@@ -64,18 +55,6 @@ class _PhoneNumberFormSectionState extends State<PhoneNumberFormSection> {
       ..removeAt(index);
     _phoneNumbers = updatedPhoneNumbers;
     widget.onPhoneNumbersChanged(updatedPhoneNumbers);
-
-    // Remove the focus node for the removed phone number.
-    final removedFocusNode = _focusNodes.removeAt(index);
-    removedFocusNode.dispose();
-  }
-
-  @override
-  void dispose() {
-    for (final focusNode in _focusNodes) {
-      focusNode.dispose();
-    }
-    super.dispose();
   }
 
   @override
@@ -84,7 +63,6 @@ class _PhoneNumberFormSectionState extends State<PhoneNumberFormSection> {
       initialItemCount: _phoneNumbers.length,
       itemBuilder: (context, index) {
         return PhoneNumberFormField(
-          focusNode: _focusNodes[index],
           initialPhoneNumber: _phoneNumbers[index],
           onPhoneNumberChanged: (phoneNumber) {
             _onPhoneNumberChanged(index, phoneNumber);

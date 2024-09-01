@@ -14,8 +14,7 @@ class NewContactScreen extends StatefulWidget {
 }
 
 class _NewContactScreenState extends State<NewContactScreen> {
-  final _firstNameFocusNode = FocusNode();
-  final _lastNameFocusNode = FocusNode();
+  final _firstNameFocusNode = FocusNode(debugLabel: 'first name');
 
   @override
   void initState() {
@@ -26,7 +25,6 @@ class _NewContactScreenState extends State<NewContactScreen> {
   @override
   void dispose() {
     _firstNameFocusNode.dispose();
-    _lastNameFocusNode.dispose();
     super.dispose();
   }
 
@@ -62,27 +60,30 @@ class _NewContactScreenState extends State<NewContactScreen> {
                 ),
                 textCapitalization: TextCapitalization.words,
                 textInputAction: TextInputAction.unspecified,
+                onEditingComplete: () {
+                  FocusScope.of(context).nextFocus();
+                },
                 enableSuggestions: false,
                 // On iOS, auto suggestions can only be disabled by disabling autocorrect.
                 autocorrect: false,
-                onFieldSubmitted: (_) => _lastNameFocusNode.requestFocus(),
               ),
               CupertinoTextFormFieldRow(
                 padding: const EdgeInsetsDirectional.symmetric(
                   vertical: 6.0, // 6.0 is the default vertical padding
                 ).copyWith(start: Spacing.firstKeyline),
-                focusNode: _lastNameFocusNode,
                 placeholder: AppLocalizations.of(context).lastNamePlaceholder,
                 placeholderStyle: TextStyle(
                   color: CupertinoColors.secondaryLabel.resolveFrom(context),
                 ),
                 textCapitalization: TextCapitalization.words,
                 textInputAction: TextInputAction.unspecified,
+                onEditingComplete: () {
+                  FocusScope.of(context).nextFocus();
+                },
                 enableSuggestions: false,
                 // On iOS, auto suggestions can only be disabled by disabling autocorrect.
                 autocorrect: false,
                 // Imitate the iOS native Contacts app behavior by focusing on the initial field in the group
-                onFieldSubmitted: (_) => _firstNameFocusNode.requestFocus(),
               ),
             ],
           ),
