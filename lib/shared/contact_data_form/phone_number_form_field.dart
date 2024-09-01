@@ -7,8 +7,8 @@ import 'package:contacts_app/shared/widgets/vertical_divider.dart';
 import 'package:contacts_app/style/spacing.dart';
 import 'package:flutter/cupertino.dart';
 
-class PhoneNumberEditField extends StatelessWidget {
-  const PhoneNumberEditField({
+class PhoneNumberFormField extends StatelessWidget {
+  const PhoneNumberFormField({
     super.key,
     required this.phoneNumber,
     required this.onPhoneNumberRemoved,
@@ -18,22 +18,6 @@ class PhoneNumberEditField extends StatelessWidget {
   final PhoneNumber phoneNumber;
   final VoidCallback onPhoneNumberRemoved;
   final ValueChanged<PhoneNumber> onPhoneNumberChanged;
-
-  Widget _removeButton(BuildContext context) {
-    return CupertinoButton(
-      padding: EdgeInsets.zero,
-      onPressed: onPhoneNumberRemoved,
-      child: Padding(
-        padding: const EdgeInsetsDirectional.symmetric(
-          horizontal: Spacing.firstKeyline,
-        ),
-        child: Icon(
-          CupertinoIcons.minus_circle_fill,
-          color: CupertinoColors.systemRed.resolveFrom(context),
-        ),
-      ),
-    );
-  }
 
   Future<void> _onPhoneLabelPressed(BuildContext context) async {
     final selectedPhoneLabel = await PhoneLabelPickerScreen.show(
@@ -89,7 +73,6 @@ class PhoneNumberEditField extends StatelessWidget {
       padding: EdgeInsetsDirectional.zero,
       prefix: Row(
         children: [
-          _removeButton(context),
           _phoneLabelButton(context),
           const SizedBox(
             height: fieldHeight,

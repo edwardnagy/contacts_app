@@ -8,6 +8,10 @@
     "@done": {
         "description": "The label for the done button."
     },
+    "delete": "Delete",
+    "@delete": {
+        "description": "The label for the delete button."
+    },
     "contacts": "Contacts",
     "@contacts": {
         "description": "The title of the contacts screen."
