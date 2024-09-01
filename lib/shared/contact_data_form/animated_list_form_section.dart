@@ -175,10 +175,10 @@ class _AnimatedListFormSectionState extends State<AnimatedListFormSection> {
       // the button should not be focusable, only the fields
       canRequestFocus: false,
       descendantsAreFocusable: false,
-      child: CupertinoButton(
-        onPressed: _addFieldToList,
+      child: CupertinoListTile(
+        onTap: _addFieldToList,
         padding: EdgeInsets.zero,
-        child: CupertinoFormRow(
+        title: CupertinoFormRow(
           padding: EdgeInsetsDirectional.zero,
           prefix: Padding(
             padding: const EdgeInsetsDirectional.symmetric(
