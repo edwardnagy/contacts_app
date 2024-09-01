@@ -30,6 +30,8 @@ class _NewContactScreenState extends State<NewContactScreen> {
 
   @override
   Widget build(BuildContext context) {
+    const itemSpacing = Spacing.x2;
+
     return CupertinoPageScaffold(
       backgroundColor:
           CupertinoColors.systemGroupedBackground.resolveFrom(context),
@@ -46,8 +48,8 @@ class _NewContactScreenState extends State<NewContactScreen> {
       child: ListView(
         keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
         children: [
-          CupertinoListSection(
-            hasLeading: false,
+          const SizedBox(height: itemSpacing / 2),
+          CupertinoFormSection(
             children: [
               CupertinoTextFormFieldRow(
                 padding: const EdgeInsetsDirectional.symmetric(
@@ -87,6 +89,7 @@ class _NewContactScreenState extends State<NewContactScreen> {
               ),
             ],
           ),
+          const SizedBox(height: itemSpacing),
           PhoneNumberFormSection(
             initialPhoneNumbers: const [
               // TODO: phoneNumbers
@@ -111,6 +114,7 @@ class _NewContactScreenState extends State<NewContactScreen> {
               // TODO: onPhoneNumbersChanged
             },
           ),
+          const SizedBox(height: itemSpacing),
           AddressFormSection(
             initialAddresses: const [
               // TODO: addresses
@@ -143,6 +147,7 @@ class _NewContactScreenState extends State<NewContactScreen> {
               // TODO: onAddressesChanged
             },
           ),
+          const SizedBox(height: itemSpacing),
         ],
       ),
     );

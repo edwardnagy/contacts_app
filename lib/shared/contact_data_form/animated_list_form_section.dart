@@ -29,6 +29,8 @@ class AnimatedListFormSection<T> extends StatefulWidget {
 }
 
 class _AnimatedListFormSectionState extends State<AnimatedListFormSection> {
+  static const _insertItemAnimationDuration = AnimationDuration.short;
+
   late var _itemCount = widget.initialItemCount;
   int? _openActionCellIndex;
   late final _actionCellKeys = List.generate(_itemCount, (_) => GlobalKey());
@@ -49,14 +51,14 @@ class _AnimatedListFormSectionState extends State<AnimatedListFormSection> {
 
     final newFocusScopeNode = _buildFocusScopeNode();
     _focusScopeNodes.add(newFocusScopeNode);
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      // Focus the new field after it has been created.
-      newFocusScopeNode.nextFocus();
-    });
+    Future.delayed(
+      _insertItemAnimationDuration + AnimationDuration.extraShort,
+      newFocusScopeNode.nextFocus,
+    );
 
     _animatedListKey.currentState?.insertItem(
       _itemCount,
-      duration: AnimationDuration.short,
+      duration: _insertItemAnimationDuration,
     );
     _itemCount++;
   }
@@ -221,7 +223,7 @@ class _AnimatedListFormSectionState extends State<AnimatedListFormSection> {
           Spacing.firstKeyline,
     );
 
-    return CupertinoListSection(
+    return CupertinoFormSection(
       children: [
         AnimatedList.separated(
           key: _animatedListKey,
