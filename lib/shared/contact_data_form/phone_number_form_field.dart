@@ -11,12 +11,10 @@ class PhoneNumberFormField extends StatelessWidget {
   const PhoneNumberFormField({
     super.key,
     required this.phoneNumber,
-    required this.onPhoneNumberRemoved,
     required this.onPhoneNumberChanged,
   });
 
   final PhoneNumber phoneNumber;
-  final VoidCallback onPhoneNumberRemoved;
   final ValueChanged<PhoneNumber> onPhoneNumberChanged;
 
   Future<void> _onPhoneLabelPressed(BuildContext context) async {
