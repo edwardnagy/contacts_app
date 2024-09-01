@@ -62,6 +62,7 @@ class _AddressFormFieldState extends State<AddressFormField> {
         Expanded(
           child: CupertinoTextField(
             padding: padding,
+            controller: controller,
             placeholder: placeholder,
             placeholderStyle: TextStyle(
               color: CupertinoColors.secondaryLabel.resolveFrom(context),
