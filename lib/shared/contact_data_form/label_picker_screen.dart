@@ -39,6 +39,13 @@ class LabelPickerScreen extends StatelessWidget {
           CupertinoColors.systemGroupedBackground.resolveFrom(context),
       navigationBar: CupertinoNavigationBar(
         middle: Text(AppLocalizations.of(context).labelPickerTitle),
+        leading: CupertinoButton(
+          padding: EdgeInsets.zero,
+          onPressed: () {
+            Navigator.of(context).maybePop();
+          },
+          child: Text(AppLocalizations.of(context).cancel),
+        ),
       ),
       child: ListView(
         children: [

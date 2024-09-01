@@ -30,8 +30,13 @@ class _NewContactScreenState extends State<NewContactScreen> {
       backgroundColor:
           CupertinoColors.systemGroupedBackground.resolveFrom(context),
       navigationBar: CupertinoNavigationBar(
-        middle: Text(
-          AppLocalizations.of(context).newContact,
+        middle: Text(AppLocalizations.of(context).newContact),
+        leading: CupertinoButton(
+          padding: EdgeInsets.zero,
+          onPressed: () {
+            Navigator.of(context).maybePop();
+          },
+          child: Text(AppLocalizations.of(context).cancel),
         ),
       ),
       child: ListView(
