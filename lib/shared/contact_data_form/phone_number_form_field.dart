@@ -82,6 +82,9 @@ class PhoneNumberFormField extends StatelessWidget {
         ],
       ),
       placeholder: AppLocalizations.of(context).phonePlaceholder,
+      placeholderStyle: TextStyle(
+        color: CupertinoColors.secondaryLabel.resolveFrom(context),
+      ),
       keyboardType: TextInputType.phone,
       onChanged: (value) {
         onPhoneNumberChanged(

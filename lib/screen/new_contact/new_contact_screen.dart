@@ -45,6 +45,9 @@ class _NewContactScreenState extends State<NewContactScreen> {
                 autofocus: true,
                 focusNode: _firstNameFocusNode,
                 placeholder: AppLocalizations.of(context).firstNamePlaceholder,
+                placeholderStyle: TextStyle(
+                  color: CupertinoColors.secondaryLabel.resolveFrom(context),
+                ),
                 textCapitalization: TextCapitalization.words,
                 textInputAction: TextInputAction.unspecified,
                 enableSuggestions: false,
@@ -58,6 +61,9 @@ class _NewContactScreenState extends State<NewContactScreen> {
                 ).copyWith(start: Spacing.firstKeyline),
                 focusNode: _lastNameFocusNode,
                 placeholder: AppLocalizations.of(context).lastNamePlaceholder,
+                placeholderStyle: TextStyle(
+                  color: CupertinoColors.secondaryLabel.resolveFrom(context),
+                ),
                 textCapitalization: TextCapitalization.words,
                 textInputAction: TextInputAction.unspecified,
                 enableSuggestions: false,
