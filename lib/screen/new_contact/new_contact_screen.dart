@@ -18,6 +18,12 @@ class _NewContactScreenState extends State<NewContactScreen> {
   final _lastNameFocusNode = FocusNode();
 
   @override
+  void initState() {
+    super.initState();
+    _firstNameFocusNode.requestFocus();
+  }
+
+  @override
   void dispose() {
     _firstNameFocusNode.dispose();
     _lastNameFocusNode.dispose();
