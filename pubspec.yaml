@@ -33,4 +33,4 @@ flutter:
   generate: true
 
 objectbox:
-  output_dir: objectbox
+  output_dir: core/data/objectbox
