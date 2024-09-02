@@ -1,8 +1,12 @@
 import 'package:contacts_app/l10n/app_localizations.dart';
+import 'package:contacts_app/objectbox/object_box.dart';
 import 'package:contacts_app/router/router.dart';
 import 'package:flutter/cupertino.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await ObjectBox.initialize();
+
   runApp(const MainApp());
 }
 

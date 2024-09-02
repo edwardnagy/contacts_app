@@ -1,5 +1,5 @@
 import 'package:contacts_app/l10n/app_localizations.dart';
-import 'package:contacts_app/model/contact_sort_field.dart';
+import 'package:contacts_app/model/contact_sort_field_type.dart';
 import 'package:contacts_app/model/contact_summary.dart';
 import 'package:flutter/cupertino.dart';
 
@@ -27,9 +27,10 @@ class ContactListItem extends StatelessWidget {
               TextSpan(
                 text: firstName,
                 style: TextStyle(
-                  fontWeight: contact.sortedField == ContactSortField.firstName
-                      ? FontWeight.bold
-                      : FontWeight.normal,
+                  fontWeight:
+                      contact.sortFieldType == ContactSortFieldType.firstName
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                 ),
               ),
             ],
@@ -38,9 +39,10 @@ class ContactListItem extends StatelessWidget {
               TextSpan(
                 text: lastName,
                 style: TextStyle(
-                  fontWeight: contact.sortedField == ContactSortField.lastName
-                      ? FontWeight.bold
-                      : FontWeight.normal,
+                  fontWeight:
+                      contact.sortFieldType == ContactSortFieldType.lastName
+                          ? FontWeight.bold
+                          : FontWeight.normal,
                 ),
               ),
             ],
@@ -50,10 +52,10 @@ class ContactListItem extends StatelessWidget {
                 TextSpan(
                   text: phoneNumber,
                   style: TextStyle(
-                    fontWeight:
-                        contact.sortedField == ContactSortField.phoneNumber
-                            ? FontWeight.bold
-                            : FontWeight.normal,
+                    fontWeight: contact.sortFieldType ==
+                            ContactSortFieldType.phoneNumber
+                        ? FontWeight.bold
+                        : FontWeight.normal,
                   ),
                 )
               ] else ...[

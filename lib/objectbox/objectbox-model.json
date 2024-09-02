@@ -1,0 +1,165 @@
+{
+  "_note1": "KEEP THIS FILE! Check it into a version control system (VCS) like git.",
+  "_note2": "ObjectBox manages crucial IDs for your object model. See docs for details.",
+  "_note3": "If you have VCS merge conflicts, you must resolve them according to ObjectBox docs.",
+  "entities": [
+    {
+      "id": "1:7521189316911485803",
+      "lastPropertyId": "4:5316875287635104439",
+      "name": "ContactEntity",
+      "properties": [
+        {
+          "id": "1:1346514920503346220",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:1761187860787511459",
+          "name": "guid",
+          "type": 9,
+          "flags": 2080,
+          "indexId": "1:2606047642500015082"
+        },
+        {
+          "id": "3:1931314122387313887",
+          "name": "firstName",
+          "type": 9
+        },
+        {
+          "id": "4:5316875287635104439",
+          "name": "lastName",
+          "type": 9
+        }
+      ],
+      "relations": [
+        {
+          "id": "1:7176611943428073368",
+          "name": "phoneNumbers",
+          "targetId": "3:1984700867104012091"
+        },
+        {
+          "id": "2:1355718045127097216",
+          "name": "addresses",
+          "targetId": "4:6758612215413192640"
+        }
+      ]
+    },
+    {
+      "id": "2:7371513502107179609",
+      "lastPropertyId": "3:1470929398908579061",
+      "name": "ContactMetadataEntity",
+      "properties": [
+        {
+          "id": "1:968399917511384181",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "3:1470929398908579061",
+          "name": "isInitialContactsAdded",
+          "type": 1
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "3:1984700867104012091",
+      "lastPropertyId": "4:4717930861149914361",
+      "name": "PhoneNumberEntity",
+      "properties": [
+        {
+          "id": "1:7880891974887125921",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:2391754171256144948",
+          "name": "number",
+          "type": 9
+        },
+        {
+          "id": "3:2764702351163261363",
+          "name": "label",
+          "type": 9
+        },
+        {
+          "id": "4:4717930861149914361",
+          "name": "contactId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "2:4736277139240099117",
+          "relationTarget": "ContactEntity"
+        }
+      ],
+      "relations": []
+    },
+    {
+      "id": "4:6758612215413192640",
+      "lastPropertyId": "8:8808094872960439186",
+      "name": "AddressEntity",
+      "properties": [
+        {
+          "id": "1:6154728790825282548",
+          "name": "id",
+          "type": 6,
+          "flags": 1
+        },
+        {
+          "id": "2:778169650754186758",
+          "name": "street1",
+          "type": 9
+        },
+        {
+          "id": "3:7951067739304252348",
+          "name": "street2",
+          "type": 9
+        },
+        {
+          "id": "4:324944640781491467",
+          "name": "city",
+          "type": 9
+        },
+        {
+          "id": "5:5230611026183759697",
+          "name": "state",
+          "type": 9
+        },
+        {
+          "id": "6:460476878231028389",
+          "name": "zipCode",
+          "type": 9
+        },
+        {
+          "id": "7:6314959032402832386",
+          "name": "label",
+          "type": 9
+        },
+        {
+          "id": "8:8808094872960439186",
+          "name": "contactId",
+          "type": 11,
+          "flags": 520,
+          "indexId": "3:2420888549001106771",
+          "relationTarget": "ContactEntity"
+        }
+      ],
+      "relations": []
+    }
+  ],
+  "lastEntityId": "4:6758612215413192640",
+  "lastIndexId": "3:2420888549001106771",
+  "lastRelationId": "2:1355718045127097216",
+  "lastSequenceId": "0:0",
+  "modelVersion": 5,
+  "modelVersionParserMinimum": 5,
+  "retiredEntityUids": [],
+  "retiredIndexUids": [],
+  "retiredPropertyUids": [
+    2327862832452500250
+  ],
+  "retiredRelationUids": [],
+  "version": 1
+}
