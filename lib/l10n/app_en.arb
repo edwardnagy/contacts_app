@@ -12,6 +12,10 @@
     "@delete": {
         "description": "The label for the delete button."
     },
+    "edit": "Edit",
+    "@edit": {
+        "description": "The label for the edit button."
+    },
     "contacts": "Contacts",
     "@contacts": {
         "description": "The title of the contacts screen."

@@ -1,7 +1,9 @@
 import 'package:collection/collection.dart';
+import 'package:contacts_app/l10n/app_localizations.dart';
 import 'package:contacts_app/model/address.dart';
 import 'package:contacts_app/model/contact_detail.dart';
 import 'package:contacts_app/model/phone_number.dart';
+import 'package:contacts_app/router/routes.dart';
 import 'package:contacts_app/style/app_text_style.dart';
 import 'package:contacts_app/style/spacing.dart';
 import 'package:flutter/cupertino.dart';
@@ -95,6 +97,13 @@ class ContactDetailScreen extends StatelessWidget {
       navigationBar: CupertinoNavigationBar(
         middle: Text(
           '${_mockContactDetail.firstName} ${_mockContactDetail.lastName}',
+        ),
+        trailing: CupertinoButton(
+          padding: EdgeInsets.zero,
+          child: Text(AppLocalizations.of(context).edit),
+          onPressed: () {
+            ContactEditingRoute(contactId: contactId).go(context);
+          },
         ),
       ),
       child: ListView(

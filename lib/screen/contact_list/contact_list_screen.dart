@@ -27,7 +27,7 @@ class ContactListScreen extends StatelessWidget {
                 size: IconTheme.of(context).size,
               ),
               onPressed: () {
-                NewContactRoute().go(context);
+                ContactCreationRoute().go(context);
               },
             ),
           ),

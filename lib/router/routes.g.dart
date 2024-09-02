@@ -17,10 +17,16 @@ RouteBase get $contactListRoute => GoRouteData.$route(
         GoRouteData.$route(
           path: 'contacts/:contactId',
           factory: $ContactDetailRouteExtension._fromState,
+          routes: [
+            GoRouteData.$route(
+              path: 'edit',
+              factory: $ContactEditingRouteExtension._fromState,
+            ),
+          ],
         ),
         GoRouteData.$route(
           path: 'new-contact',
-          factory: $NewContactRouteExtension._fromState,
+          factory: $ContactCreationRouteExtension._fromState,
         ),
       ],
     );
@@ -62,8 +68,29 @@ extension $ContactDetailRouteExtension on ContactDetailRoute {
   void replace(BuildContext context) => context.replace(location);
 }
 
-extension $NewContactRouteExtension on NewContactRoute {
-  static NewContactRoute _fromState(GoRouterState state) => NewContactRoute();
+extension $ContactEditingRouteExtension on ContactEditingRoute {
+  static ContactEditingRoute _fromState(GoRouterState state) =>
+      ContactEditingRoute(
+        contactId: state.pathParameters['contactId']!,
+      );
+
+  String get location => GoRouteData.$location(
+        '/contacts/${Uri.encodeComponent(contactId)}/edit',
+      );
+
+  void go(BuildContext context) => context.go(location);
+
+  Future<T?> push<T>(BuildContext context) => context.push<T>(location);
+
+  void pushReplacement(BuildContext context) =>
+      context.pushReplacement(location);
+
+  void replace(BuildContext context) => context.replace(location);
+}
+
+extension $ContactCreationRouteExtension on ContactCreationRoute {
+  static ContactCreationRoute _fromState(GoRouterState state) =>
+      ContactCreationRoute();
 
   String get location => GoRouteData.$location(
         '/new-contact',
