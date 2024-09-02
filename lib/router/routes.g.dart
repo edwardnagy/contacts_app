@@ -52,10 +52,16 @@ extension $ContactDetailRouteExtension on ContactDetailRoute {
   static ContactDetailRoute _fromState(GoRouterState state) =>
       ContactDetailRoute(
         contactId: state.pathParameters['contactId']!,
+        firstName: state.uri.queryParameters['first-name'],
+        lastName: state.uri.queryParameters['last-name'],
       );
 
   String get location => GoRouteData.$location(
         '/contacts/${Uri.encodeComponent(contactId)}',
+        queryParams: {
+          if (firstName != null) 'first-name': firstName,
+          if (lastName != null) 'last-name': lastName,
+        },
       );
 
   void go(BuildContext context) => context.go(location);

@@ -12,7 +12,7 @@ class AddressFormSection extends StatefulWidget {
     required this.onAddressesChanged,
   });
 
-  final List<Address> initialAddresses;
+  final List<Address>? initialAddresses;
   final ValueChanged<List<Address>> onAddressesChanged;
 
   @override
@@ -20,7 +20,7 @@ class AddressFormSection extends StatefulWidget {
 }
 
 class _AddressFormSectionState extends State<AddressFormSection> {
-  late var _addresses = widget.initialAddresses;
+  late var _addresses = widget.initialAddresses ?? [];
 
   void _onNewAddressAdded(BuildContext context) {
     // Determine the label for the new address. If the last address has a label,

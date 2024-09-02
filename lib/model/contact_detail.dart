@@ -5,10 +5,10 @@ import 'package:flutter/foundation.dart';
 @immutable
 class ContactDetail {
   final String id;
-  final String firstName;
-  final String lastName;
-  final List<PhoneNumber> phoneNumbers;
-  final List<Address> addresses;
+  final String? firstName;
+  final String? lastName;
+  final List<PhoneNumber>? phoneNumbers;
+  final List<Address>? addresses;
 
   const ContactDetail({
     required this.id,

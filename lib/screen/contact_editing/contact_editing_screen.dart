@@ -29,7 +29,11 @@ class ContactEditingScreen extends StatelessWidget {
           padding: EdgeInsets.zero,
           onPressed: didChangeContactData
               ? () {
-                  ContactDetailRoute(contactId: contactId).go(context);
+                  ContactDetailRoute(
+                    contactId: contactId,
+                    firstName: _mockContactDetail.firstName,
+                    lastName: _mockContactDetail.lastName,
+                  ).go(context);
                 }
               : null,
           child: Text(AppLocalizations.of(context).done),

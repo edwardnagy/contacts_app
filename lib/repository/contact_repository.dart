@@ -1,6 +1,7 @@
 import 'package:contacts_app/data/contact_local_source.dart';
 import 'package:contacts_app/model/address.dart';
 import 'package:contacts_app/model/contact_create.dart';
+import 'package:contacts_app/model/contact_detail.dart';
 import 'package:contacts_app/model/contact_sort_field_type.dart';
 import 'package:contacts_app/model/contact_summary.dart';
 import 'package:contacts_app/model/phone_number.dart';
@@ -39,6 +40,10 @@ class ContactRepository {
   ) {
     return _contactLocalSource.watchContacts(sortFieldTypes: sortFieldTypes);
   }
+
+  Stream<ContactDetail> watchContactDetail(String contactId) {
+    return _contactLocalSource.watchContactDetail(contactId);
+  }
 }
 
 const _mockInitialContacts = [
@@ -62,6 +67,8 @@ const _mockInitialContacts = [
     lastName: 'Doe',
     phoneNumbers: [
       PhoneNumber(number: '123-456-7890', label: 'Home'),
+      PhoneNumber(number: '234-567-8901', label: 'Mobile'),
+      PhoneNumber(number: '345-678-9012', label: 'Work'),
     ],
     addresses: [
       Address(
@@ -105,6 +112,22 @@ const _mockInitialContacts = [
         state: 'IL',
         zipCode: '62701',
         label: 'Work',
+      ),
+      Address(
+        street1: '567 Maple St',
+        street2: null,
+        city: 'Springfield',
+        state: 'IL',
+        zipCode: '62701',
+        label: 'Home',
+      ),
+      Address(
+        street1: '678 Walnut St',
+        street2: null,
+        city: 'Springfield',
+        state: 'IL',
+        zipCode: '62701',
+        label: 'Other',
       ),
     ],
   ),

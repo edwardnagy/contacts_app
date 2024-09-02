@@ -1,20 +1,38 @@
 import 'package:collection/collection.dart';
 import 'package:contacts_app/l10n/app_localizations.dart';
 import 'package:contacts_app/model/address.dart';
-import 'package:contacts_app/model/contact_detail.dart';
 import 'package:contacts_app/model/phone_number.dart';
 import 'package:contacts_app/router/routes.dart';
+import 'package:contacts_app/simple_di.dart';
 import 'package:contacts_app/style/app_text_style.dart';
 import 'package:contacts_app/style/spacing.dart';
 import 'package:flutter/cupertino.dart';
 
-class ContactDetailScreen extends StatelessWidget {
+class ContactDetailScreen extends StatefulWidget {
   const ContactDetailScreen({
     super.key,
     required this.contactId,
+    required this.firstName,
+    required this.lastName,
   });
 
   final String contactId;
+
+  /// The first name of the contact, required for the animation of the
+  /// navigation bar title.
+  final String? firstName;
+
+  /// The last name of the contact, required for the animation of the navigation
+  /// bar title.
+  final String? lastName;
+
+  @override
+  State<ContactDetailScreen> createState() => _ContactDetailScreenState();
+}
+
+class _ContactDetailScreenState extends State<ContactDetailScreen> {
+  // TODO: Use a BLoC with a use case to manage the contacts.
+  final _contactRepository = SimpleDi.contactRepository;
 
   CupertinoListTile _phoneNumberTile(
     BuildContext context,
@@ -91,48 +109,63 @@ class ContactDetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CupertinoPageScaffold(
-      backgroundColor:
-          CupertinoColors.systemGroupedBackground.resolveFrom(context),
-      navigationBar: CupertinoNavigationBar(
-        middle: Text(
-          '${_mockContactDetail.firstName} ${_mockContactDetail.lastName}',
-        ),
-        trailing: CupertinoButton(
-          padding: EdgeInsets.zero,
-          child: Text(AppLocalizations.of(context).edit),
-          onPressed: () {
-            ContactEditingRoute(contactId: contactId).go(context);
-          },
-        ),
-      ),
-      child: ListView(
-        children: [
-          CupertinoListSection.insetGrouped(
-            margin: const EdgeInsets.symmetric(
-              horizontal: Spacing.x1,
-            ).copyWith(
-              top: Spacing.x2,
+    return StreamBuilder(
+      stream: _contactRepository.watchContactDetail(widget.contactId),
+      builder: (context, snapshot) {
+        final contact = snapshot.data;
+        final (phoneNumbers, addresses) =
+            (contact?.phoneNumbers, contact?.addresses);
+
+        return CupertinoPageScaffold(
+          backgroundColor:
+              CupertinoColors.systemGroupedBackground.resolveFrom(context),
+          navigationBar: CupertinoNavigationBar(
+            middle: Text(
+              [
+                contact?.firstName ?? widget.firstName,
+                contact?.lastName ?? widget.lastName
+              ].whereNotNull().join(' '),
             ),
-            additionalDividerMargin: 0,
-            children: _mockContactDetail.phoneNumbers
-                .map((phoneNumber) => _phoneNumberTile(context, phoneNumber))
-                .toList(),
-          ),
-          CupertinoListSection.insetGrouped(
-            margin: const EdgeInsets.symmetric(
-              horizontal: Spacing.x1,
-            ).copyWith(
-              top: Spacing.x2,
+            trailing: CupertinoButton(
+              padding: EdgeInsets.zero,
+              child: Text(AppLocalizations.of(context).edit),
+              onPressed: () {
+                ContactEditingRoute(contactId: widget.contactId).go(context);
+              },
             ),
-            additionalDividerMargin: 0,
-            children: _mockContactDetail.addresses
-                .map((address) => _addressTile(context, address))
-                .toList(),
           ),
-          const SizedBox(height: Spacing.x4),
-        ],
-      ),
+          child: ListView(
+            children: [
+              if (phoneNumbers != null && phoneNumbers.isNotEmpty)
+                CupertinoListSection.insetGrouped(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: Spacing.x1,
+                  ).copyWith(
+                    top: Spacing.x2,
+                  ),
+                  additionalDividerMargin: 0,
+                  children: phoneNumbers
+                      .map((phoneNumber) =>
+                          _phoneNumberTile(context, phoneNumber))
+                      .toList(),
+                ),
+              if (addresses != null && addresses.isNotEmpty)
+                CupertinoListSection.insetGrouped(
+                  margin: const EdgeInsets.symmetric(
+                    horizontal: Spacing.x1,
+                  ).copyWith(
+                    top: Spacing.x2,
+                  ),
+                  additionalDividerMargin: 0,
+                  children: addresses
+                      .map((address) => _addressTile(context, address))
+                      .toList(),
+                ),
+              const SizedBox(height: Spacing.x4),
+            ],
+          ),
+        );
+      },
     );
   }
 }
@@ -144,49 +177,3 @@ extension on Iterable<String> {
     return isNotEmpty ? join(separator) : null;
   }
 }
-
-const _mockContactDetail = ContactDetail(
-  id: '1',
-  firstName: 'John',
-  lastName: 'Appleseed',
-  phoneNumbers: [
-    PhoneNumber(
-      number: '5555648583',
-      label: 'mobile',
-    ),
-    PhoneNumber(
-      number: '+555-555-5555',
-      label: 'home',
-    ),
-    PhoneNumber(
-      number: '555-555-5555',
-      label: 'work',
-    ),
-  ],
-  addresses: [
-    Address(
-      street1: '165 Davis Street',
-      street2: null,
-      city: 'Hillsborough',
-      state: 'CA',
-      zipCode: '94010',
-      label: 'home',
-    ),
-    Address(
-      street1: '1 Apple Park Way',
-      street2: 'Cupertino',
-      city: 'Cupertino',
-      state: 'CA',
-      zipCode: '95014',
-      label: 'work',
-    ),
-    Address(
-      street1: '1 Infinite Loop',
-      street2: 'Cupertino',
-      city: null,
-      state: null,
-      zipCode: '95014',
-      label: 'other',
-    ),
-  ],
-);

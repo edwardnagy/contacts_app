@@ -27,7 +27,11 @@ class ContactCreationScreen extends StatelessWidget {
               ? () {
                   const newContactId =
                       'newContactId'; // TODO: get new contact ID
-                  const ContactDetailRoute(contactId: newContactId).go(context);
+                  const ContactDetailRoute(
+                    contactId: newContactId,
+                    firstName: null,
+                    lastName: null,
+                  ).go(context);
                 }
               : null,
           child: Text(AppLocalizations.of(context).done),

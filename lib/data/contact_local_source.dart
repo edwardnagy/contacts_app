@@ -5,6 +5,7 @@ import 'package:contacts_app/data/objectbox/contact_metadata_box_dao.dart';
 import 'package:contacts_app/data/objectbox/entity/contact_entity.dart';
 import 'package:contacts_app/data/objectbox/entity/contact_metadata_entity.dart';
 import 'package:contacts_app/model/contact_create.dart';
+import 'package:contacts_app/model/contact_detail.dart';
 import 'package:contacts_app/model/contact_sort_field_type.dart';
 import 'package:contacts_app/model/contact_summary.dart';
 import 'package:objectbox/objectbox.dart';
@@ -86,6 +87,12 @@ class ContactLocalSource {
 
       return summaries;
     });
+  }
+
+  Stream<ContactDetail> watchContactDetail(String contactId) {
+    return _contactBoxDao
+        .watchContactDetail(contactId)
+        .map((contactEntity) => contactEntity.toDetail());
   }
 }
 

@@ -20,13 +20,13 @@ class ContactDataForm extends StatefulWidget {
     this.autofocus = false,
   });
 
-  final String firstName;
+  final String? firstName;
   final ValueChanged<String> onFirstNameChanged;
-  final String lastName;
+  final String? lastName;
   final ValueChanged<String> onLastNameChanged;
-  final List<PhoneNumber> phoneNumbers;
+  final List<PhoneNumber>? phoneNumbers;
   final ValueChanged<List<PhoneNumber>> onPhoneNumbersChanged;
-  final List<Address> addresses;
+  final List<Address>? addresses;
   final ValueChanged<List<Address>> onAddressesChanged;
   final bool autofocus;
 
@@ -59,7 +59,7 @@ class _ContactDataFormState extends State<ContactDataForm> {
   Widget _nameField(
     BuildContext context, {
     required String placeholder,
-    required String initialValue,
+    required String? initialValue,
     required ValueChanged<String> onChanged,
   }) {
     return CupertinoTextFormFieldRow(

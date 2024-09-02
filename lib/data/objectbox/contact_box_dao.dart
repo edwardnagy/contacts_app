@@ -1,5 +1,5 @@
 import 'package:contacts_app/data/objectbox/entity/contact_entity.dart';
-import 'package:objectbox/objectbox.dart';
+import 'package:contacts_app/objectbox/objectbox.g.dart';
 
 class ContactBoxDao {
   final Box<ContactEntity> _contactBox;
@@ -15,5 +15,12 @@ class ContactBoxDao {
 
   void saveContacts(List<ContactEntity> map) {
     _contactBox.putMany(map);
+  }
+
+  Stream<ContactEntity> watchContactDetail(String contactGuid) {
+    return _contactBox
+        .query(ContactEntity_.guid.equals(contactGuid))
+        .watch(triggerImmediately: true)
+        .map((query) => query.findFirst()!);
   }
 }

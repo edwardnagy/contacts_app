@@ -14,7 +14,7 @@ class PhoneNumberFormSection extends StatefulWidget {
     required this.onPhoneNumbersChanged,
   });
 
-  final List<PhoneNumber> initialPhoneNumbers;
+  final List<PhoneNumber>? initialPhoneNumbers;
   final ValueChanged<List<PhoneNumber>> onPhoneNumbersChanged;
 
   @override
@@ -22,7 +22,7 @@ class PhoneNumberFormSection extends StatefulWidget {
 }
 
 class _PhoneNumberFormSectionState extends State<PhoneNumberFormSection> {
-  late var _phoneNumbers = widget.initialPhoneNumbers;
+  late var _phoneNumbers = widget.initialPhoneNumbers ?? [];
 
   void _onNewPhoneNumberAdded(BuildContext context) {
     // Determine the label for the new phone number. If the last phone number

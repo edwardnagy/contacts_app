@@ -38,12 +38,22 @@ class ContactListRoute extends GoRouteData {
 @immutable
 class ContactDetailRoute extends GoRouteData {
   final String contactId;
+  final String? firstName;
+  final String? lastName;
 
-  const ContactDetailRoute({required this.contactId});
+  const ContactDetailRoute({
+    required this.contactId,
+    required this.firstName,
+    required this.lastName,
+  });
 
   @override
   Widget build(BuildContext context, GoRouterState state) {
-    return ContactDetailScreen(contactId: contactId);
+    return ContactDetailScreen(
+      contactId: contactId,
+      firstName: firstName,
+      lastName: lastName,
+    );
   }
 }
 

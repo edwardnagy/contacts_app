@@ -15,6 +15,7 @@ class ContactListScreen extends StatefulWidget {
 }
 
 class _ContactListScreenState extends State<ContactListScreen> {
+  // TODO: Use a BLoC with a use case to manage the contacts.
   final _contactRepository = SimpleDi.contactRepository;
 
   @override
@@ -73,8 +74,11 @@ class _ContactListScreenState extends State<ContactListScreen> {
                         ContactListItem(
                           contact: contact,
                           onTap: () {
-                            ContactDetailRoute(contactId: contact.id)
-                                .go(context);
+                            ContactDetailRoute(
+                              contactId: contact.id,
+                              firstName: contact.firstName,
+                              lastName: contact.lastName,
+                            ).go(context);
                           },
                         ),
                         const Divider(),
