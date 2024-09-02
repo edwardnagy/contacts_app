@@ -1,16 +1,11 @@
-import 'package:contacts_app/data/contact_local_source.dart';
-import 'package:contacts_app/data/objectbox/contact_box_dao.dart';
-import 'package:contacts_app/data/objectbox/contact_metadata_box_dao.dart';
 import 'package:contacts_app/l10n/app_localizations.dart';
 import 'package:contacts_app/model/contact_sort_field_type.dart';
-import 'package:contacts_app/objectbox/object_box.dart';
-import 'package:contacts_app/repository/contact_repository.dart';
 import 'package:contacts_app/router/routes.dart';
 import 'package:contacts_app/screen/contact_list/contact_list_item.dart';
 import 'package:contacts_app/shared/widgets/divider.dart';
+import 'package:contacts_app/simple_di.dart';
 import 'package:contacts_app/style/app_text_style.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:logger/logger.dart';
 
 class ContactListScreen extends StatefulWidget {
   const ContactListScreen({super.key});
@@ -20,14 +15,7 @@ class ContactListScreen extends StatefulWidget {
 }
 
 class _ContactListScreenState extends State<ContactListScreen> {
-  final _contactRepository = ContactRepository(
-    Logger(),
-    ContactLocalSource(
-      ObjectBox.instance.store,
-      ContactBoxDao(ObjectBox.instance.store),
-      ContactMetadataBoxDao(ObjectBox.instance.store),
-    ),
-  );
+  final _contactRepository = SimpleDi.contactRepository;
 
   @override
   Widget build(BuildContext context) {
