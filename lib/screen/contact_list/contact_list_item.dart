@@ -18,6 +18,7 @@ class ContactListItem extends StatelessWidget {
     final (firstName, lastName, phoneNumber) =
         (contact.firstName, contact.lastName, contact.phoneNumber);
     return CupertinoListTile(
+      onTap: onTap,
       title: Text.rich(
         TextSpan(
           children: [

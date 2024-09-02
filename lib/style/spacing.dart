@@ -7,11 +7,12 @@ class Spacing {
 
   static const base = 8.0;
 
-  static const x0_25 = base / 4;
+  static const x0_2_5 = base / 4;
   static const x0_5 = base / 2;
   static const x1 = base;
   static const x1_5 = base * 1.5;
   static const x2 = base * 2;
+  static const x_2_5 = base * 2.5;
   static const x3 = base * 3;
   static const x4 = base * 4;
 

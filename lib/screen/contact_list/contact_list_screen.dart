@@ -36,7 +36,7 @@ class ContactListScreen extends StatelessWidget {
               child: Center(
                 child: Text(
                   AppLocalizations.of(context).noContacts,
-                  style: AppTextStyle.emptyLabel(context),
+                  style: AppTextStyle.titleMedium(context),
                 ),
               ),
             ),
@@ -51,7 +51,7 @@ class ContactListScreen extends StatelessWidget {
                       ContactListItem(
                         contact: contact,
                         onTap: () {
-                          // TODO: Open contact details.
+                          ContactDetailRoute(contactId: contact.id).go(context);
                         },
                       ),
                       const Divider(),
@@ -69,54 +69,63 @@ class ContactListScreen extends StatelessWidget {
 
 const _mockContacts = [
   ContactSummary(
+    id: '1',
     firstName: "John",
     lastName: "Appleseed",
     phoneNumber: "8885555512",
     sortedField: ContactSortField.lastName,
   ),
   ContactSummary(
+    id: '2',
     firstName: "Kate",
     lastName: "Bell",
     phoneNumber: "8885555513",
     sortedField: ContactSortField.lastName,
   ),
   ContactSummary(
+    id: '3',
     firstName: "Anna",
     lastName: "Haro",
     phoneNumber: "8885555514",
     sortedField: ContactSortField.lastName,
   ),
   ContactSummary(
+    id: '4',
     firstName: "Daniel",
     lastName: "Higgins",
     phoneNumber: "8885555515",
     sortedField: ContactSortField.lastName,
   ),
   ContactSummary(
+    id: '5',
     firstName: "R",
     lastName: null,
     phoneNumber: null,
     sortedField: ContactSortField.firstName,
   ),
   ContactSummary(
+    id: '6',
     firstName: "David",
     lastName: "Taylor",
     phoneNumber: "8885555516",
     sortedField: ContactSortField.lastName,
   ),
   ContactSummary(
+    id: '7',
     firstName: "Hank",
     lastName: "Zakroff",
     phoneNumber: "8885555517",
     sortedField: ContactSortField.lastName,
   ),
   ContactSummary(
+    id: '8',
     firstName: null,
     lastName: null,
     phoneNumber: null,
     sortedField: null,
   ),
   ContactSummary(
+    id: '9',
     firstName: null,
     lastName: null,
     phoneNumber: "8885555518",
