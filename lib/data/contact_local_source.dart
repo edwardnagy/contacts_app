@@ -1,41 +1,41 @@
 import 'package:collection/collection.dart';
 import 'package:contacts_app/data/contact_mappers.dart';
-import 'package:contacts_app/data/objectbox/contact_box_dao.dart';
-import 'package:contacts_app/data/objectbox/contact_metadata_box_dao.dart';
 import 'package:contacts_app/data/objectbox/entity/contact_entity.dart';
 import 'package:contacts_app/data/objectbox/entity/contact_metadata_entity.dart';
 import 'package:contacts_app/model/contact_create.dart';
 import 'package:contacts_app/model/contact_detail.dart';
 import 'package:contacts_app/model/contact_sort_field_type.dart';
 import 'package:contacts_app/model/contact_summary.dart';
-import 'package:objectbox/objectbox.dart';
+import 'package:contacts_app/objectbox/objectbox.g.dart';
 
 class ContactLocalSource {
   final Store _store;
-  final ContactBoxDao _contactBoxDao;
-  final ContactMetadataBoxDao _contactMetadataBoxDao;
+
+  Box<ContactEntity> get _contactBox => _store.box();
+  Box<ContactMetadataEntity> get _contactMetadataBox => _store.box();
 
   ContactLocalSource(
     this._store,
-    this._contactBoxDao,
-    this._contactMetadataBoxDao,
   );
 
   Future<bool> isInitialContactsAdded() {
-    final contactMetadata = _contactMetadataBoxDao.getContactMetadata();
+    final contactMetadata = _contactMetadataBox.getAll().firstOrNull;
     final isAdded = contactMetadata?.isInitialContactsAdded == true;
     return Future.value(isAdded);
   }
 
   Future<void> addInitialContacts(List<ContactCreate> contacts) {
     void saveInitialContactsTransaction() {
+      // Save the contacts
       final contactEntities =
           contacts.map((contact) => contact.toEntity()).toList();
-      _contactBoxDao.saveContacts(contactEntities);
-
+      _contactBox.putMany(contactEntities);
+      // Update the metadata
       final contactMetadata =
           ContactMetadataEntity(isInitialContactsAdded: true);
-      _contactMetadataBoxDao.saveContactMetadata(contactMetadata);
+      _contactMetadataBox
+        ..removeAll()
+        ..put(contactMetadata);
     }
 
     _store.runInTransaction(TxMode.write, saveInitialContactsTransaction);
@@ -49,7 +49,11 @@ class ContactLocalSource {
   Stream<List<ContactSummary>> watchContacts({
     required List<ContactSortFieldType> sortFieldTypes,
   }) {
-    return _contactBoxDao.watchContacts().map((contactEntities) {
+    return _contactBox
+        .query()
+        .watch(triggerImmediately: true)
+        .map((query) => query.find())
+        .map((contactEntities) {
       // Map each contact's ID to the first non-empty sort field
       final sortFieldByContactId = <int, _ContactSortField?>{
         for (var contactEntity in contactEntities)
@@ -90,8 +94,10 @@ class ContactLocalSource {
   }
 
   Stream<ContactDetail> watchContactDetail(String contactId) {
-    return _contactBoxDao
-        .watchContactDetail(contactId)
+    return _contactBox
+        .query(ContactEntity_.guid.equals(contactId))
+        .watch(triggerImmediately: true)
+        .map((query) => query.findFirst()!)
         .map((contactEntity) => contactEntity.toDetail());
   }
 }
