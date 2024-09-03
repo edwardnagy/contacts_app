@@ -72,7 +72,6 @@ class _AnimatedListFormSectionState extends State<AnimatedListFormSection> {
       index,
       onRemovePressed: null,
     ); // build the widget before its item is removed
-    widget.onItemRemoved(index);
     await swipeAnimationCompletion;
     _actionCellKeys.removeAt(index);
     _focusScopeNodes.removeAt(index)
@@ -84,6 +83,8 @@ class _AnimatedListFormSectionState extends State<AnimatedListFormSection> {
       duration: Duration.zero,
     );
     _itemCount--;
+
+    widget.onItemRemoved(index);
   }
 
   /// Builds the widget for the field at the given index.
