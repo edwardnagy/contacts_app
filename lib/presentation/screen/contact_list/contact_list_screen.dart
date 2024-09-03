@@ -16,7 +16,7 @@ class ContactListScreen extends StatefulWidget {
 
 class _ContactListScreenState extends State<ContactListScreen> {
   // TODO: Use a BLoC with a use case to manage the contacts.
-  final _contactRepository = SimpleDi.contactRepository;
+  final _contactRepository = SimpleDi.instance.contactRepository;
 
   @override
   Widget build(BuildContext context) {

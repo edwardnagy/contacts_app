@@ -1,27 +1,29 @@
+import 'package:contacts_app/core/data/asset/contact_asset_source.dart';
 import 'package:contacts_app/core/data/objectbox/contact_objectbox_source.dart';
-import 'package:contacts_app/core/model/address.dart';
-import 'package:contacts_app/core/model/contact_create.dart';
 import 'package:contacts_app/core/model/contact_detail.dart';
 import 'package:contacts_app/core/model/contact_sort_field_type.dart';
 import 'package:contacts_app/core/model/contact_summary.dart';
-import 'package:contacts_app/core/model/phone_number.dart';
 import 'package:logger/logger.dart';
 
 class ContactRepository {
   final Logger _logger;
   final ContactObjectboxSource _contactLocalSource;
+  final ContactAssetSource _contactAssetSource;
 
-  ContactRepository(this._logger, this._contactLocalSource) {
-    _initialize();
-  }
+  ContactRepository(
+    this._logger,
+    this._contactLocalSource,
+    this._contactAssetSource,
+  );
 
-  Future<void> _initialize() async {
+  Future<void> initialize() async {
     try {
       final isInitialContactsAdded =
           await _contactLocalSource.isInitialContactsAdded();
       if (!isInitialContactsAdded) {
         _logger.i('Initial contacts have not been added. Adding...');
-        await _contactLocalSource.addInitialContacts(_mockInitialContacts);
+        final initialContacts = await _contactAssetSource.getInitialContacts();
+        await _contactLocalSource.addInitialContacts(initialContacts);
         _logger.i('Initial contacts just added');
       } else {
         _logger.i('Initial contacts have already been added');
@@ -45,90 +47,3 @@ class ContactRepository {
     return _contactLocalSource.watchContactDetail(contactId);
   }
 }
-
-const _mockInitialContacts = [
-  ContactCreate(
-    firstName: null,
-    lastName: null,
-    phoneNumbers: null,
-    addresses: [
-      Address(
-        street1: '012 Birch St',
-        street2: null,
-        city: 'Springfield',
-        state: 'IL',
-        zipCode: '62701',
-        label: 'Work',
-      ),
-    ],
-  ),
-  ContactCreate(
-    firstName: 'John',
-    lastName: 'Doe',
-    phoneNumbers: [
-      PhoneNumber(number: '123-456-7890', label: 'Home'),
-      PhoneNumber(number: '234-567-8901', label: 'Mobile'),
-      PhoneNumber(number: '345-678-9012', label: 'Work'),
-    ],
-    addresses: [
-      Address(
-        street1: '123 Elm St',
-        street2: 'Apt 456',
-        city: 'Springfield',
-        state: 'IL',
-        zipCode: '62701',
-        label: 'Home',
-      ),
-    ],
-  ),
-  ContactCreate(
-    firstName: null,
-    lastName: null,
-    phoneNumbers: [
-      PhoneNumber(number: '345-678-9012', label: 'Work'),
-    ],
-    addresses: [
-      Address(
-        street1: '789 Pine St',
-        street2: null,
-        city: 'Springfield',
-        state: 'IL',
-        zipCode: '62701',
-        label: 'Home',
-      ),
-    ],
-  ),
-  ContactCreate(
-    firstName: 'Jane',
-    lastName: 'Smith',
-    phoneNumbers: [
-      PhoneNumber(number: '234-567-8901', label: 'Mobile'),
-    ],
-    addresses: [
-      Address(
-        street1: '456 Oak St',
-        street2: null,
-        city: 'Springfield',
-        state: 'IL',
-        zipCode: '62701',
-        label: 'Work',
-      ),
-      Address(
-        street1: '567 Maple St',
-        street2: null,
-        city: 'Springfield',
-        state: 'IL',
-        zipCode: '62701',
-        label: 'Home',
-      ),
-      Address(
-        street1: '678 Walnut St',
-        street2: null,
-        city: 'Springfield',
-        state: 'IL',
-        zipCode: '62701',
-        label: 'Other',
-      ),
-    ],
-  ),
-];

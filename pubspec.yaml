@@ -1,6 +1,6 @@
 name: contacts_app
 description: "Contacts app based on the design of the iOS native Contacts app."
-publish_to: 'none'
+publish_to: "none"
 version: 0.1.0
 
 environment:
@@ -32,6 +32,8 @@ dev_dependencies:
 
 flutter:
   generate: true
+  assets:
+    - assets/initial_contacts.json
 
 objectbox:
   output_dir: core/data/objectbox/generated

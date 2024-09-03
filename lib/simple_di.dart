@@ -1,3 +1,4 @@
+import 'package:contacts_app/core/data/asset/contact_asset_source.dart';
 import 'package:contacts_app/core/data/objectbox/contact_objectbox_source.dart';
 import 'package:contacts_app/core/data/objectbox/generated/objectbox.g.dart';
 import 'package:contacts_app/core/data/objectbox/objectbox.dart';
@@ -6,15 +7,22 @@ import 'package:logger/logger.dart';
 
 /// A simple dependency injection container.
 class SimpleDi {
-  const SimpleDi._();
+  SimpleDi._();
 
-  static Logger get logger => Logger();
+  static final instance = SimpleDi._();
 
-  static Store get store => ObjectBox.instance.store;
+  Future<void> initialize() async {
+    await contactRepository.initialize();
+  }
 
-  static ContactObjectboxSource get contactLocalSource =>
+  Logger get logger => Logger();
+
+  Store get store => ObjectBox.instance.store;
+  ContactObjectboxSource get contactLocalSource =>
       ContactObjectboxSource(store);
 
-  static final ContactRepository contactRepository =
-      ContactRepository(logger, contactLocalSource);
+  ContactAssetSource get contactAssetSource => ContactAssetSource();
+
+  late final ContactRepository contactRepository =
+      ContactRepository(logger, contactLocalSource, contactAssetSource);
 }

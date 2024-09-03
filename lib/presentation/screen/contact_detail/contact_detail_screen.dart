@@ -32,7 +32,7 @@ class ContactDetailScreen extends StatefulWidget {
 
 class _ContactDetailScreenState extends State<ContactDetailScreen> {
   // TODO: Use a BLoC with a use case to manage the contacts.
-  final _contactRepository = SimpleDi.contactRepository;
+  final _contactRepository = SimpleDi.instance.contactRepository;
 
   CupertinoListTile _phoneNumberTile(
     BuildContext context,
