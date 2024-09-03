@@ -80,10 +80,12 @@ class _ContactListScreenState extends State<ContactListScreen> {
                 ),
                 borderRadius: BorderRadius.circular(4),
               ),
-              child: Text(AppLocalizations.of(context).retry,
-                  style: TextStyle(
-                    color: CupertinoColors.secondaryLabel.resolveFrom(context),
-                  )),
+              child: Text(
+                AppLocalizations.of(context).retry,
+                style: TextStyle(
+                  color: CupertinoColors.secondaryLabel.resolveFrom(context),
+                ),
+              ),
             ),
           ),
         ],
@@ -141,6 +143,8 @@ class _ContactListScreenState extends State<ContactListScreen> {
             bloc: _bloc,
             builder: (context, state) {
               switch (state.status) {
+                case ContactListStatus.idle:
+                  return const SliverFillRemaining();
                 case ContactListStatus.loading:
                   return _loadingViewSliver(context);
                 case ContactListStatus.failure:

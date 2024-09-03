@@ -1,8 +1,7 @@
-import 'package:contacts_app/presentation/l10n/app_localizations.dart';
+import 'package:contacts_app/presentation/screen/contact_creation/contact_creation_screen.dart';
 import 'package:contacts_app/presentation/screen/contact_detail/contact_detail_screen.dart';
 import 'package:contacts_app/presentation/screen/contact_editing/contact_editing_screen.dart';
 import 'package:contacts_app/presentation/screen/contact_list/contact_list_screen.dart';
-import 'package:contacts_app/presentation/screen/contact_creation/contact_creation_screen.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:go_router/go_router.dart';
 
@@ -28,9 +27,12 @@ part 'routes.g.dart';
 class ContactListRoute extends GoRouteData {
   @override
   Page<void> buildPage(BuildContext context, GoRouterState state) {
-    return CupertinoPage(
-      title: AppLocalizations.of(context).contacts,
-      child: const ContactListScreen(),
+    return const CupertinoPage(
+      // Disable title for now, as it's not working properly when popping back
+      // from multiple pushed routes.
+      // This issue still occurs: https://github.com/flutter/flutter/issues/57581
+      // title: AppLocalizations.of(context).contacts,
+      child: ContactListScreen(),
     );
   }
 }

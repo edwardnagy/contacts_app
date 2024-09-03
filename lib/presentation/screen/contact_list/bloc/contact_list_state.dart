@@ -1,10 +1,10 @@
 part of 'contact_list_bloc.dart';
 
-enum ContactListStatus { loading, success, failure }
+enum ContactListStatus { idle, loading, success, failure }
 
 final class ContactListState with EquatableMixin {
   const ContactListState({
-    this.status = ContactListStatus.loading,
+    this.status = ContactListStatus.idle,
     this.contacts = const <ContactSummary>[],
   });
 

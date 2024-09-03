@@ -1,7 +1,7 @@
 part of 'contact_creation_bloc.dart';
 
 @immutable
-class ContactCreationState extends Equatable {
+final class ContactCreationState with EquatableMixin {
   const ContactCreationState({
     required this.firstName,
     required this.lastName,
@@ -15,7 +15,7 @@ class ContactCreationState extends Equatable {
         lastName = '',
         phoneNumbers = const [],
         addresses = const [],
-        creationStatus = const ContactCreationInProgress();
+        creationStatus = const ContactCreationInitial();
 
   final String firstName;
   final String lastName;
@@ -23,7 +23,7 @@ class ContactCreationState extends Equatable {
   final List<Address> addresses;
   final ContactCreationStatus creationStatus;
 
-  bool get isAnyFieldNotEmpty =>
+  bool get isAnyFieldFilled =>
       firstName.isNotEmpty ||
       lastName.isNotEmpty ||
       phoneNumbers.any((phoneNumber) => phoneNumber.isNotEmpty) ||
@@ -45,23 +45,6 @@ class ContactCreationState extends Equatable {
     );
   }
 
-  /// Resets the creation status (success/error) and copies the state with the
-  /// provided fields.
-  ContactCreationState resetStatusAndCopyWith({
-    String? firstName,
-    String? lastName,
-    List<PhoneNumber>? phoneNumbers,
-    List<Address>? addresses,
-  }) {
-    return ContactCreationState(
-      firstName: firstName ?? this.firstName,
-      lastName: lastName ?? this.lastName,
-      phoneNumbers: phoneNumbers ?? this.phoneNumbers,
-      addresses: addresses ?? this.addresses,
-      creationStatus: const ContactCreationInProgress(),
-    );
-  }
-
   @override
   List<Object?> get props =>
       [firstName, lastName, phoneNumbers, addresses, creationStatus];
@@ -70,16 +53,20 @@ class ContactCreationState extends Equatable {
 @immutable
 sealed class ContactCreationStatus with EquatableMixin {
   const ContactCreationStatus();
-}
-
-class ContactCreationInProgress extends ContactCreationStatus {
-  const ContactCreationInProgress();
 
   @override
   List<Object?> get props => [];
 }
 
-class ContactCreationSuccess extends ContactCreationStatus {
+final class ContactCreationInitial extends ContactCreationStatus {
+  const ContactCreationInitial();
+}
+
+final class ContactCreationInProgress extends ContactCreationStatus {
+  const ContactCreationInProgress();
+}
+
+final class ContactCreationSuccess extends ContactCreationStatus {
   const ContactCreationSuccess({required this.contactId});
 
   final String contactId;
@@ -88,7 +75,7 @@ class ContactCreationSuccess extends ContactCreationStatus {
   List<Object?> get props => [contactId];
 }
 
-class ContactCreationFailure extends ContactCreationStatus {
+final class ContactCreationFailure extends ContactCreationStatus {
   const ContactCreationFailure(this.error);
 
   final Object error;

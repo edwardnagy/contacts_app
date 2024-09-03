@@ -44,6 +44,10 @@
     "@errorLoadingContacts": {
         "description": "The message to display when there is an error while loading contacts."
     },
+    "errorLoadingContact": "Error loading contact",
+    "@errorLoadingContact": {
+        "description": "The message to display when there is an error while loading a contact."
+    },
     "noName": "No Name",
     "@noName": {
         "description": "The name to display when the contact has no name."
@@ -51,6 +55,10 @@
     "newContact": "New Contact",
     "@newContact": {
         "description": "The title of the new contact screen."
+    },
+    "deleteContact": "Delete Contact",
+    "@deleteContact": {
+        "description": "The label for the delete contact button."
     },
     "firstNamePlaceholder": "First name",
     "@firstNamePlaceholder": {
@@ -119,5 +127,25 @@
     "newContactExitConfirmationMessage": "Are you sure you want to discard this contact?",
     "@newContactExitConfirmationMessage": {
         "description": "The message of the exit confirmation dialog when creating a new contact."
+    },
+    "editContactExitConfirmationMessage": "Are you sure you want to discard your changes?",
+    "@editContactExitConfirmationMessage": {
+        "description": "The message of the exit confirmation dialog when editing a contact."
+    },
+    "editContactErrorTitle": "Error Editing Contact",
+    "@editContactErrorTitle": {
+        "description": "The title of the error dialog when editing a contact fails."
+    },
+    "editContactErrorMessage": "An error occurred while editing the contact. Please try again.",
+    "@editContactErrorMessage": {
+        "description": "The message of the error dialog when editing a contact fails."
+    },
+    "deleteContactErrorTitle": "Error Deleting Contact",
+    "@deleteContactErrorTitle": {
+        "description": "The title of the error dialog when deleting a contact fails."
+    },
+    "deleteContactErrorMessage": "An error occurred while deleting the contact. Please try again.",
+    "@deleteContactErrorMessage": {
+        "description": "The message of the error dialog when deleting a contact fails."
     }
 }

@@ -32,6 +32,7 @@ class ContactListBloc extends Bloc<ContactListEvent, ContactListState> {
       ContactSortFieldType.firstName,
       ContactSortFieldType.phoneNumber,
     ];
+    emit(state.copyWith(status: ContactListStatus.loading));
     return emit.forEach(
       _watchContactsUseCase(sortFieldsPrioritized),
       onData: (result) {

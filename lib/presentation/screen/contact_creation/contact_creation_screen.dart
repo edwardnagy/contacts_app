@@ -124,7 +124,7 @@ class _ContactCreationForm extends StatelessWidget {
       builder: (context, state) {
         return PopScope(
           // prevent pop if there are unsaved changes
-          canPop: !state.isAnyFieldNotEmpty,
+          canPop: !state.isAnyFieldFilled,
           onPopInvokedWithResult: (didPop, result) {
             if (!didPop) {
               // pop was prevented, show confirmation dialog
@@ -152,7 +152,7 @@ class _ContactCreationForm extends StatelessWidget {
               ),
               trailing: CupertinoButton(
                 padding: EdgeInsets.zero,
-                onPressed: state.isAnyFieldNotEmpty
+                onPressed: state.isAnyFieldFilled
                     ? () {
                         context
                             .read<ContactCreationBloc>()

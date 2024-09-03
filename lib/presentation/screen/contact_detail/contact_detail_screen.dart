@@ -103,7 +103,7 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
   @override
   Widget build(BuildContext context) {
     return StreamBuilder(
-      stream: _contactRepository.watchContactDetail(widget.contactId),
+      stream: _contactRepository.watchContact(widget.contactId),
       builder: (context, snapshot) {
         final contact = snapshot.data;
         final (phoneNumbers, addresses) =

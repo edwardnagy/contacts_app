@@ -10,6 +10,13 @@ final class Address with EquatableMixin {
   final String zipCode;
   final String label;
 
+  bool get isNotEmpty =>
+      street1.isNotEmpty ||
+      street2.isNotEmpty ||
+      city.isNotEmpty ||
+      state.isNotEmpty ||
+      zipCode.isNotEmpty;
+
   const Address({
     required this.street1,
     required this.street2,

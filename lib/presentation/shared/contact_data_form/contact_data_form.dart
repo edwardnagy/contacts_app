@@ -17,6 +17,7 @@ class ContactDataForm extends StatefulWidget {
     required this.onPhoneNumbersChanged,
     required this.addresses,
     required this.onAddressesChanged,
+    this.onDeletePressed,
     this.autofocus = false,
   });
 
@@ -28,6 +29,10 @@ class ContactDataForm extends StatefulWidget {
   final ValueChanged<List<PhoneNumber>> onPhoneNumbersChanged;
   final List<Address>? addresses;
   final ValueChanged<List<Address>> onAddressesChanged;
+
+  /// Callback when the delete button is pressed. If null, the delete button is
+  /// not shown.
+  final VoidCallback? onDeletePressed;
   final bool autofocus;
 
   @override
@@ -81,6 +86,28 @@ class _ContactDataFormState extends State<ContactDataForm> {
     );
   }
 
+  CupertinoFormSection _deleteContactButton(BuildContext context) {
+    return CupertinoFormSection(
+      children: [
+        CupertinoListTile(
+          onTap: widget.onDeletePressed,
+          title: CupertinoFormRow(
+            padding: EdgeInsetsDirectional.zero,
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                AppLocalizations.of(context).deleteContact,
+                style: TextStyle(
+                  color: CupertinoColors.destructiveRed.resolveFrom(context),
+                ),
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     const sectionSpacing = Spacing.x2;
@@ -117,6 +144,8 @@ class _ContactDataFormState extends State<ContactDataForm> {
           initialAddresses: widget.addresses,
           onAddressesChanged: widget.onAddressesChanged,
         ),
+        const SizedBox(height: sectionSpacing),
+        if (widget.onDeletePressed != null) _deleteContactButton(context),
         const SizedBox(height: sectionSpacing),
       ],
     );

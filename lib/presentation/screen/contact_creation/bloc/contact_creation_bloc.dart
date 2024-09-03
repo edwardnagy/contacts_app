@@ -20,13 +20,13 @@ class ContactCreationBloc
     on<ContactCreationEvent>((event, emit) {
       return switch (event) {
         ContactCreationFirstNameChanged() =>
-          emit(state.resetStatusAndCopyWith(firstName: event.firstName)),
+          emit(state.copyWith(firstName: event.firstName)),
         ContactCreationLastNameChanged() =>
-          emit(state.resetStatusAndCopyWith(lastName: event.lastName)),
+          emit(state.copyWith(lastName: event.lastName)),
         ContactCreationPhoneNumbersChanged() =>
-          emit(state.resetStatusAndCopyWith(phoneNumbers: event.phoneNumbers)),
+          emit(state.copyWith(phoneNumbers: event.phoneNumbers)),
         ContactCreationAddressesChanged() =>
-          emit(state.resetStatusAndCopyWith(addresses: event.addresses)),
+          emit(state.copyWith(addresses: event.addresses)),
         ContactCreationSaveRequested() => _onSaveRequested(emit),
       };
     });
@@ -36,6 +36,7 @@ class ContactCreationBloc
   final CreateContactUseCase _createContactUseCase;
 
   Future<void> _onSaveRequested(Emitter<ContactCreationState> emit) async {
+    emit(state.copyWith(creationStatus: const ContactCreationInProgress()));
     final contact = _getContactFromState();
     final createContactResult = await _createContactUseCase(contact);
     switch (createContactResult) {
@@ -44,7 +45,6 @@ class ContactCreationBloc
           creationStatus:
               ContactCreationSuccess(contactId: createContactResult.data),
         ));
-        break;
       case ResultFailure():
         _logger.e(
           'Failed to create contact',
@@ -54,7 +54,6 @@ class ContactCreationBloc
         emit(state.copyWith(
           creationStatus: ContactCreationFailure(createContactResult.error),
         ));
-        break;
     }
   }
 
@@ -69,17 +68,4 @@ class ContactCreationBloc
           state.addresses.where((address) => address.isNotEmpty).toList(),
     );
   }
-}
-
-extension on PhoneNumber {
-  bool get isNotEmpty => number.isNotEmpty;
-}
-
-extension on Address {
-  bool get isNotEmpty =>
-      street1.isNotEmpty == true ||
-      street2.isNotEmpty ||
-      city.isNotEmpty ||
-      state.isNotEmpty ||
-      zipCode.isNotEmpty;
 }

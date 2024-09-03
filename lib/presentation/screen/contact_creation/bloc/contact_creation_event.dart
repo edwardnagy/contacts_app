@@ -5,7 +5,7 @@ sealed class ContactCreationEvent with EquatableMixin {
   const ContactCreationEvent();
 }
 
-class ContactCreationFirstNameChanged extends ContactCreationEvent {
+final class ContactCreationFirstNameChanged extends ContactCreationEvent {
   const ContactCreationFirstNameChanged(this.firstName);
 
   final String firstName;
@@ -14,7 +14,7 @@ class ContactCreationFirstNameChanged extends ContactCreationEvent {
   List<Object> get props => [firstName];
 }
 
-class ContactCreationLastNameChanged extends ContactCreationEvent {
+final class ContactCreationLastNameChanged extends ContactCreationEvent {
   const ContactCreationLastNameChanged(this.lastName);
 
   final String lastName;
@@ -23,7 +23,7 @@ class ContactCreationLastNameChanged extends ContactCreationEvent {
   List<Object> get props => [lastName];
 }
 
-class ContactCreationPhoneNumbersChanged extends ContactCreationEvent {
+final class ContactCreationPhoneNumbersChanged extends ContactCreationEvent {
   const ContactCreationPhoneNumbersChanged(this.phoneNumbers);
 
   final List<PhoneNumber> phoneNumbers;
@@ -32,7 +32,7 @@ class ContactCreationPhoneNumbersChanged extends ContactCreationEvent {
   List<Object> get props => [phoneNumbers];
 }
 
-class ContactCreationAddressesChanged extends ContactCreationEvent {
+final class ContactCreationAddressesChanged extends ContactCreationEvent {
   const ContactCreationAddressesChanged(this.addresses);
 
   final List<Address> addresses;
@@ -41,7 +41,7 @@ class ContactCreationAddressesChanged extends ContactCreationEvent {
   List<Object> get props => [addresses];
 }
 
-class ContactCreationSaveRequested extends ContactCreationEvent {
+final class ContactCreationSaveRequested extends ContactCreationEvent {
   const ContactCreationSaveRequested();
 
   @override

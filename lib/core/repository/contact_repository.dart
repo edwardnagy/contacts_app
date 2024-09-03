@@ -4,6 +4,7 @@ import 'package:contacts_app/core/model/contact_create.dart';
 import 'package:contacts_app/core/model/contact_detail.dart';
 import 'package:contacts_app/core/model/contact_sort_field_type.dart';
 import 'package:contacts_app/core/model/contact_summary.dart';
+import 'package:contacts_app/core/model/contact_update.dart';
 import 'package:logger/logger.dart';
 
 class ContactRepository {
@@ -38,17 +39,29 @@ class ContactRepository {
     }
   }
 
+  Future<String> createContact(ContactCreate contact) {
+    return _contactLocalSource.createContact(contact);
+  }
+
   Stream<List<ContactSummary>> watchContacts(
     List<ContactSortFieldType> sortFieldTypes,
   ) {
     return _contactLocalSource.watchContacts(sortFieldTypes: sortFieldTypes);
   }
 
-  Stream<ContactDetail> watchContactDetail(String contactId) {
+  Future<ContactDetail> getContact(String id) {
+    return _contactLocalSource.getContact(id);
+  }
+
+  Stream<ContactDetail> watchContact(String contactId) {
     return _contactLocalSource.watchContactDetail(contactId);
   }
 
-  Future<String> createContact(ContactCreate contact) {
-    return _contactLocalSource.createContact(contact);
+  Future<void> updateContact(ContactUpdate contact) {
+    return _contactLocalSource.updateContact(contact);
+  }
+
+  Future<void> deleteContact(String contactId) {
+    return _contactLocalSource.deleteContact(contactId);
   }
 }

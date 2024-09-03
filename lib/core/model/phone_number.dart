@@ -6,6 +6,8 @@ final class PhoneNumber with EquatableMixin {
   final String number;
   final String label;
 
+  bool get isNotEmpty => number.isNotEmpty;
+
   const PhoneNumber({
     required this.number,
     required this.label,

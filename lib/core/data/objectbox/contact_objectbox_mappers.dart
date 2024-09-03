@@ -52,6 +52,28 @@ extension ContactCreateMappers on ContactCreate {
   }
 }
 
+extension PhoneNumberMappers on PhoneNumber {
+  PhoneNumberEntity toEntity(ContactEntity contactEntity) {
+    return PhoneNumberEntity(
+      number: number,
+      label: label,
+    )..contact.target = contactEntity;
+  }
+}
+
+extension AddressMappers on Address {
+  AddressEntity toEntity(ContactEntity contactEntity) {
+    return AddressEntity(
+      street1: street1,
+      street2: street2,
+      city: city,
+      state: state,
+      zipCode: zipCode,
+      label: label,
+    )..contact.target = contactEntity;
+  }
+}
+
 extension on PhoneNumberEntity {
   PhoneNumber toModel() {
     return PhoneNumber(
@@ -71,27 +93,5 @@ extension on AddressEntity {
       zipCode: zipCode,
       label: label,
     );
-  }
-}
-
-extension on PhoneNumber {
-  PhoneNumberEntity toEntity(ContactEntity contactEntity) {
-    return PhoneNumberEntity(
-      number: number,
-      label: label,
-    )..contact.target = contactEntity;
-  }
-}
-
-extension on Address {
-  AddressEntity toEntity(ContactEntity contactEntity) {
-    return AddressEntity(
-      street1: street1,
-      street2: street2,
-      city: city,
-      state: state,
-      zipCode: zipCode,
-      label: label,
-    )..contact.target = contactEntity;
   }
 }
