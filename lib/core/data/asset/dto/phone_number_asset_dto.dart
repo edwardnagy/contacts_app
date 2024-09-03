@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
 @immutable
-class PhoneNumberAssetDto {
+final class PhoneNumberAssetDto {
   final String number;
   final String label;
 

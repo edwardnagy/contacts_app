@@ -2,7 +2,7 @@ import 'package:contacts_app/core/model/contact_sort_field_type.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class ContactSummary {
+final class ContactSummary {
   final String id;
   final String? firstName;
   final String? lastName;

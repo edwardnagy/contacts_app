@@ -3,7 +3,7 @@ import 'package:contacts_app/core/data/asset/dto/phone_number_asset_dto.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class ContactAssetDto {
+final class ContactAssetDto {
   final String? firstName;
   final String? lastName;
   final List<PhoneNumberAssetDto>? phoneNumbers;

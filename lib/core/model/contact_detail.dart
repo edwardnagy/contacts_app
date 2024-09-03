@@ -3,7 +3,7 @@ import 'package:contacts_app/core/model/phone_number.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class ContactDetail {
+final class ContactDetail {
   final String id;
   final String? firstName;
   final String? lastName;

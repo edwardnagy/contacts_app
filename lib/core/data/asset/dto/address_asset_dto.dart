@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
 @immutable
-class AddressAssetDto {
+final class AddressAssetDto {
   final String? street1;
   final String? street2;
   final String? city;

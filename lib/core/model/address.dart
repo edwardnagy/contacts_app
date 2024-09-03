@@ -1,7 +1,7 @@
 import 'package:meta/meta.dart';
 
 @immutable
-class Address {
+final class Address {
   final String? street1;
   final String? street2;
   final String? city;

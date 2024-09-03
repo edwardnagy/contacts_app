@@ -2,7 +2,7 @@ import 'package:contacts_app/core/data/asset/dto/contact_asset_dto.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-class ContactsAssetDto {
+final class ContactsAssetDto {
   final List<ContactAssetDto> contacts;
 
   const ContactsAssetDto({required this.contacts});
