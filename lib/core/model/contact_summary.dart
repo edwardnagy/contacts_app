@@ -5,8 +5,8 @@ import 'package:meta/meta.dart';
 @immutable
 final class ContactSummary with EquatableMixin {
   final String id;
-  final String? firstName;
-  final String? lastName;
+  final String firstName;
+  final String lastName;
   final String? phoneNumber;
 
   /// The field used when this contact was sorted.

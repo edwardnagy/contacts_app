@@ -74,7 +74,7 @@ const _mockContactDetail = ContactDetail(
   addresses: [
     Address(
       street1: '165 Davis Street',
-      street2: null,
+      street2: '',
       city: 'Hillsborough',
       state: 'CA',
       zipCode: '94010',
@@ -91,8 +91,8 @@ const _mockContactDetail = ContactDetail(
     Address(
       street1: '1 Infinite Loop',
       street2: 'Cupertino',
-      city: null,
-      state: null,
+      city: '',
+      state: '',
       zipCode: '95014',
       label: 'other',
     ),

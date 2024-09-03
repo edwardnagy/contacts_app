@@ -4,10 +4,10 @@ import 'package:meta/meta.dart';
 
 @immutable
 final class ContactAssetDto {
-  final String? firstName;
-  final String? lastName;
-  final List<PhoneNumberAssetDto>? phoneNumbers;
-  final List<AddressAssetDto>? addresses;
+  final String firstName;
+  final String lastName;
+  final List<PhoneNumberAssetDto> phoneNumbers;
+  final List<AddressAssetDto> addresses;
 
   const ContactAssetDto({
     required this.firstName,
@@ -18,14 +18,14 @@ final class ContactAssetDto {
 
   factory ContactAssetDto.fromJson(Map<String, dynamic> json) {
     return ContactAssetDto(
-      firstName: json['firstName'] as String?,
-      lastName: json['lastName'] as String?,
-      phoneNumbers: (json['phoneNumbers'] as List<dynamic>?)
-          ?.map((phoneNumberDto) => PhoneNumberAssetDto.fromJson(
+      firstName: json['firstName'] as String,
+      lastName: json['lastName'] as String,
+      phoneNumbers: (json['phoneNumbers'] as List<dynamic>)
+          .map((phoneNumberDto) => PhoneNumberAssetDto.fromJson(
               phoneNumberDto as Map<String, dynamic>))
           .toList(),
-      addresses: (json['addresses'] as List<dynamic>?)
-          ?.map((addressDto) =>
+      addresses: (json['addresses'] as List<dynamic>)
+          .map((addressDto) =>
               AddressAssetDto.fromJson(addressDto as Map<String, dynamic>))
           .toList(),
     );

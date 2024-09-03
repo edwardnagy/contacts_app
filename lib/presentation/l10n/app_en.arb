@@ -20,6 +20,18 @@
     "@retry": {
         "description": "The label for the retry button."
     },
+    "tryAgain": "Try Again",
+    "@tryAgain": {
+        "description": "The label for the try again button."
+    },
+    "discardChanges": "Discard Changes",
+    "@discardChanges": {
+        "description": "The label for the discard changes button."
+    },
+    "keepEditing": "Keep Editing",
+    "@keepEditing": {
+        "description": "The label for the keep editing button."
+    },
     "contacts": "Contacts",
     "@contacts": {
         "description": "The title of the contacts screen."
@@ -95,5 +107,17 @@
     "zipCodePlaceholder": "Postcode",
     "@zipCodePlaceholder": {
         "description": "The placeholder for the ZIP code field."
+    },
+    "saveContactErrorTitle": "Error Saving Contact",
+    "@saveContactErrorTitle": {
+        "description": "The title of the error dialog when saving a contact fails."
+    },
+    "saveContactErrorMessage": "An error occurred while saving the contact. Please try again.",
+    "@saveContactErrorMessage": {
+        "description": "The message of the error dialog when saving a contact fails."
+    },
+    "newContactExitConfirmationMessage": "Are you sure you want to discard this contact?",
+    "@newContactExitConfirmationMessage": {
+        "description": "The message of the exit confirmation dialog when creating a new contact."
     }
 }

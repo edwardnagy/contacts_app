@@ -7,7 +7,6 @@ import 'package:contacts_app/core/model/contact_detail.dart';
 import 'package:contacts_app/core/model/contact_sort_field_type.dart';
 import 'package:contacts_app/core/model/contact_summary.dart';
 import 'package:contacts_app/core/model/phone_number.dart';
-import 'package:uuid/uuid.dart';
 
 extension ContactEntityMapper on ContactEntity {
   ContactSummary toSummary({required ContactSortFieldType? sortFieldType}) {
@@ -33,26 +32,21 @@ extension ContactEntityMapper on ContactEntity {
 }
 
 extension ContactCreateMappers on ContactCreate {
-  ContactEntity toEntity() {
-    final guid = const Uuid().v4();
+  ContactEntity toEntity({required String guid}) {
     final contactEntity = ContactEntity(
       guid: guid,
       firstName: firstName,
       lastName: lastName,
     );
 
-    if (phoneNumbers case final phoneNumbers?) {
-      final phoneNumberEntities = phoneNumbers
-          .map((phoneNumber) => phoneNumber.toEntity(contactEntity))
-          .toList();
-      contactEntity.phoneNumbers.addAll(phoneNumberEntities);
-    }
+    final phoneNumberEntities = phoneNumbers
+        .map((phoneNumber) => phoneNumber.toEntity(contactEntity))
+        .toList();
+    contactEntity.phoneNumbers.addAll(phoneNumberEntities);
 
-    if (addresses case final addresses?) {
-      final addressEntities =
-          addresses.map((address) => address.toEntity(contactEntity)).toList();
-      contactEntity.addresses.addAll(addressEntities);
-    }
+    final addressEntities =
+        addresses.map((address) => address.toEntity(contactEntity)).toList();
+    contactEntity.addresses.addAll(addressEntities);
 
     return contactEntity;
   }

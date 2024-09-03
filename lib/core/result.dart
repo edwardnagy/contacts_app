@@ -7,46 +7,46 @@ import 'package:rxdart/rxdart.dart';
 sealed class Result<T extends Object> with EquatableMixin {
   const Result();
 
-  static fromFuture<T extends Object>(
+  static Future<Result<T>> fromFuture<T extends Object>(
     Future<T> future,
   ) async {
     try {
       final data = await future;
-      return Success(data);
+      return ResultSuccess<T>(data);
     } catch (error, stackTrace) {
-      return Failure(error, stackTrace);
+      return ResultFailure(error, stackTrace);
     }
   }
 
-  static fromStream<T extends Object>(
+  static Stream<Result<T>> fromStream<T extends Object>(
     Stream<T> stream,
   ) {
     return stream.map<Result<T>>(
       (data) {
-        return Success(data);
+        return ResultSuccess<T>(data);
       },
     ).onErrorReturnWith(
       (error, stackTrace) {
-        return Failure(error, stackTrace);
+        return ResultFailure<T>(error, stackTrace);
       },
     );
   }
 }
 
-final class Success<T extends Object> extends Result<T> {
+final class ResultSuccess<T extends Object> extends Result<T> {
   final T data;
 
-  const Success(this.data);
+  const ResultSuccess(this.data);
 
   @override
   List<Object> get props => [data];
 }
 
-final class Failure<T extends Object> extends Result<T> {
+final class ResultFailure<T extends Object> extends Result<T> {
   final Object error;
   final StackTrace stackTrace;
 
-  const Failure(this.error, this.stackTrace);
+  const ResultFailure(this.error, this.stackTrace);
 
   @override
   List<Object> get props => [error, stackTrace];

@@ -1,6 +1,6 @@
 part of 'contact_list_bloc.dart';
 
-sealed class ContactListEvent extends Equatable {
+sealed class ContactListEvent with EquatableMixin {
   const ContactListEvent();
 
   @override

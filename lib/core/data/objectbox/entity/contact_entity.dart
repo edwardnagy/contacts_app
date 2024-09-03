@@ -8,8 +8,8 @@ class ContactEntity {
   int id = 0;
   @Unique()
   String guid;
-  String? firstName;
-  String? lastName;
+  String firstName;
+  String lastName;
 
   final phoneNumbers = ToMany<PhoneNumberEntity>();
   final addresses = ToMany<AddressEntity>();

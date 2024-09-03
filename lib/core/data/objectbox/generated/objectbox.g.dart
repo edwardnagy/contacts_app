@@ -227,12 +227,8 @@ obx_int.ModelDefinition getObjectBoxModel() {
         },
         objectToFB: (ContactEntity object, fb.Builder fbb) {
           final guidOffset = fbb.writeString(object.guid);
-          final firstNameOffset = object.firstName == null
-              ? null
-              : fbb.writeString(object.firstName!);
-          final lastNameOffset = object.lastName == null
-              ? null
-              : fbb.writeString(object.lastName!);
+          final firstNameOffset = fbb.writeString(object.firstName);
+          final lastNameOffset = fbb.writeString(object.lastName);
           fbb.startTable(5);
           fbb.addInt64(0, object.id);
           fbb.addOffset(1, guidOffset);
@@ -247,9 +243,9 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final guidParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 6, '');
           final firstNameParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGetNullable(buffer, rootOffset, 8);
+              .vTableGet(buffer, rootOffset, 8, '');
           final lastNameParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGetNullable(buffer, rootOffset, 10);
+              .vTableGet(buffer, rootOffset, 10, '');
           final object = ContactEntity(
               guid: guidParam,
               firstName: firstNameParam,
@@ -334,16 +330,11 @@ obx_int.ModelDefinition getObjectBoxModel() {
           object.id = id;
         },
         objectToFB: (AddressEntity object, fb.Builder fbb) {
-          final street1Offset =
-              object.street1 == null ? null : fbb.writeString(object.street1!);
-          final street2Offset =
-              object.street2 == null ? null : fbb.writeString(object.street2!);
-          final cityOffset =
-              object.city == null ? null : fbb.writeString(object.city!);
-          final stateOffset =
-              object.state == null ? null : fbb.writeString(object.state!);
-          final zipCodeOffset =
-              object.zipCode == null ? null : fbb.writeString(object.zipCode!);
+          final street1Offset = fbb.writeString(object.street1);
+          final street2Offset = fbb.writeString(object.street2);
+          final cityOffset = fbb.writeString(object.city);
+          final stateOffset = fbb.writeString(object.state);
+          final zipCodeOffset = fbb.writeString(object.zipCode);
           final labelOffset = fbb.writeString(object.label);
           fbb.startTable(9);
           fbb.addInt64(0, object.id);
@@ -361,15 +352,15 @@ obx_int.ModelDefinition getObjectBoxModel() {
           final buffer = fb.BufferContext(fbData);
           final rootOffset = buffer.derefObject(0);
           final street1Param = const fb.StringReader(asciiOptimization: true)
-              .vTableGetNullable(buffer, rootOffset, 6);
+              .vTableGet(buffer, rootOffset, 6, '');
           final street2Param = const fb.StringReader(asciiOptimization: true)
-              .vTableGetNullable(buffer, rootOffset, 8);
+              .vTableGet(buffer, rootOffset, 8, '');
           final cityParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGetNullable(buffer, rootOffset, 10);
+              .vTableGet(buffer, rootOffset, 10, '');
           final stateParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGetNullable(buffer, rootOffset, 12);
+              .vTableGet(buffer, rootOffset, 12, '');
           final zipCodeParam = const fb.StringReader(asciiOptimization: true)
-              .vTableGetNullable(buffer, rootOffset, 14);
+              .vTableGet(buffer, rootOffset, 14, '');
           final labelParam = const fb.StringReader(asciiOptimization: true)
               .vTableGet(buffer, rootOffset, 16, '');
           final object = AddressEntity(

@@ -2,7 +2,7 @@ part of 'contact_list_bloc.dart';
 
 enum ContactListStatus { loading, success, failure }
 
-final class ContactListState extends Equatable {
+final class ContactListState with EquatableMixin {
   const ContactListState({
     this.status = ContactListStatus.loading,
     this.contacts = const <ContactSummary>[],

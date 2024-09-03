@@ -7,6 +7,7 @@ import 'package:contacts_app/core/model/contact_create.dart';
 import 'package:contacts_app/core/model/contact_detail.dart';
 import 'package:contacts_app/core/model/contact_sort_field_type.dart';
 import 'package:contacts_app/core/model/contact_summary.dart';
+import 'package:uuid/uuid.dart';
 
 class ContactObjectboxSource {
   final Store _store;
@@ -27,8 +28,9 @@ class ContactObjectboxSource {
   Future<void> addInitialContacts(List<ContactCreate> contacts) {
     void saveInitialContactsTransaction() {
       // Save the contacts
-      final contactEntities =
-          contacts.map((contact) => contact.toEntity()).toList();
+      final contactEntities = contacts
+          .map((contact) => contact.toEntity(guid: const Uuid().v4()))
+          .toList();
       _contactBox.putMany(contactEntities);
       // Update the metadata
       final contactMetadata =
@@ -99,6 +101,13 @@ class ContactObjectboxSource {
         .watch(triggerImmediately: true)
         .map((query) => query.findFirst()!)
         .map((contactEntity) => contactEntity.toDetail());
+  }
+
+  Future<String> createContact(ContactCreate contact) {
+    final guid = const Uuid().v4();
+    final contactEntity = contact.toEntity(guid: guid);
+    _contactBox.put(contactEntity);
+    return Future.value(guid);
   }
 }
 

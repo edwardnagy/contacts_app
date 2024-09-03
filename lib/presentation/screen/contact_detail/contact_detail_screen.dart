@@ -64,21 +64,14 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
     BuildContext context,
     Address address,
   ) {
-    final (street1, street2, city, state, zipCode) = (
+    final addressText = [
       address.street1,
       address.street2,
-      address.city,
-      address.state,
-      address.zipCode
-    );
-    final addressText = [
-      street1,
-      street2,
       [
-        [city, state].whereNotNull().joinIfNotEmpty(', '),
-        zipCode,
-      ].whereNotNull().joinIfNotEmpty(' '),
-    ].whereNotNull().join('\n');
+        [address.city, address.state].whereNotEmpty().join(', '),
+        address.zipCode,
+      ].whereNotEmpty().join(' '),
+    ].whereNotEmpty().join('\n');
     return CupertinoListTile.notched(
       padding: const EdgeInsets.symmetric(
         horizontal: Spacing.x_2_5,
@@ -123,8 +116,8 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
             middle: Text(
               [
                 contact?.firstName ?? widget.firstName,
-                contact?.lastName ?? widget.lastName
-              ].whereNotNull().join(' '),
+                contact?.lastName ?? widget.lastName,
+              ].whereNotNull().whereNotEmpty().join(' '),
             ),
             trailing: CupertinoButton(
               padding: EdgeInsets.zero,
@@ -171,9 +164,5 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
 }
 
 extension on Iterable<String> {
-  /// Joins the elements of this iterable into a single string with the given
-  /// [separator]. If this iterable is empty, returns `null`.
-  String? joinIfNotEmpty(String separator) {
-    return isNotEmpty ? join(separator) : null;
-  }
+  Iterable<String> whereNotEmpty() => where((element) => element.isNotEmpty);
 }

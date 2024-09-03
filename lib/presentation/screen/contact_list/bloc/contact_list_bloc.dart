@@ -36,12 +36,12 @@ class ContactListBloc extends Bloc<ContactListEvent, ContactListState> {
       _watchContactsUseCase(sortFieldsPrioritized),
       onData: (result) {
         switch (result) {
-          case Success():
+          case ResultSuccess():
             return state.copyWith(
               status: ContactListStatus.success,
               contacts: result.data,
             );
-          case Failure():
+          case ResultFailure():
             _logger.e(
               'Failed to load contacts',
               error: result.error,

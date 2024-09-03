@@ -1,5 +1,6 @@
 import 'package:contacts_app/core/data/asset/contact_asset_source.dart';
 import 'package:contacts_app/core/data/objectbox/contact_objectbox_source.dart';
+import 'package:contacts_app/core/model/contact_create.dart';
 import 'package:contacts_app/core/model/contact_detail.dart';
 import 'package:contacts_app/core/model/contact_sort_field_type.dart';
 import 'package:contacts_app/core/model/contact_summary.dart';
@@ -45,5 +46,9 @@ class ContactRepository {
 
   Stream<ContactDetail> watchContactDetail(String contactId) {
     return _contactLocalSource.watchContactDetail(contactId);
+  }
+
+  Future<String> createContact(ContactCreate contact) {
+    return _contactLocalSource.createContact(contact);
   }
 }

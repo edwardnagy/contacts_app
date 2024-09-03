@@ -1,12 +1,13 @@
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-final class Address {
-  final String? street1;
-  final String? street2;
-  final String? city;
-  final String? state;
-  final String? zipCode;
+final class Address with EquatableMixin {
+  final String street1;
+  final String street2;
+  final String city;
+  final String state;
+  final String zipCode;
   final String label;
 
   const Address({
@@ -20,11 +21,11 @@ final class Address {
 
   const Address.empty({
     required this.label,
-  })  : street1 = null,
-        street2 = null,
-        city = null,
-        state = null,
-        zipCode = null;
+  })  : street1 = '',
+        street2 = '',
+        city = '',
+        state = '',
+        zipCode = '';
 
   Address copyWith({
     String? street1,
@@ -43,4 +44,7 @@ final class Address {
       label: label ?? this.label,
     );
   }
+
+  @override
+  List<Object?> get props => [street1, street2, city, state, zipCode, label];
 }

@@ -5,11 +5,11 @@ import 'package:objectbox/objectbox.dart';
 class AddressEntity {
   @Id()
   int id = 0;
-  String? street1;
-  String? street2;
-  String? city;
-  String? state;
-  String? zipCode;
+  String street1;
+  String street2;
+  String city;
+  String state;
+  String zipCode;
   String label;
 
   final contact = ToOne<ContactEntity>();

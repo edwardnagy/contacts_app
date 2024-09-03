@@ -16,7 +16,7 @@
             "addresses": [
                 {
                     "street1": "3494 Kuhl Avenue",
-                    "street2": null,
+                    "street2": "",
                     "city": "Atlanta",
                     "state": "GA",
                     "zipCode": "30303",
@@ -24,7 +24,7 @@
                 },
                 {
                     "street1": "1234 Laurel Street",
-                    "street2": null,
+                    "street2": "",
                     "city": "Atlanta",
                     "state": "GA",
                     "zipCode": "30303",
@@ -48,7 +48,7 @@
             "addresses": [
                 {
                     "street1": "165 Davis Street",
-                    "street2": null,
+                    "street2": "",
                     "city": "Hillsborough",
                     "state": "CA",
                     "zipCode": "94010",
@@ -68,7 +68,7 @@
             "addresses": [
                 {
                     "street1": "1001 Leavenworth Street",
-                    "street2": null,
+                    "street2": "",
                     "city": "Sausalito",
                     "state": "CA",
                     "zipCode": "94965",
@@ -96,7 +96,7 @@
             "addresses": [
                 {
                     "street1": "332 Laguna Street",
-                    "street2": null,
+                    "street2": "",
                     "city": "Corte Madera",
                     "state": "CA",
                     "zipCode": "94925",
@@ -116,7 +116,7 @@
             "addresses": [
                 {
                     "street1": "1747 Steuart Street",
-                    "street2": null,
+                    "street2": "",
                     "city": "Tiburon",
                     "state": "CA",
                     "zipCode": "94920",
@@ -140,7 +140,7 @@
             "addresses": [
                 {
                     "street1": "1741 Kearny Street",
-                    "street2": null,
+                    "street2": "",
                     "city": "San Rafael",
                     "state": "CA",
                     "zipCode": "94901",
@@ -149,7 +149,7 @@
             ]
         },
         {
-            "firstName": null,
+            "firstName": "",
             "lastName": "Doe",
             "phoneNumbers": [
                 {
@@ -169,8 +169,8 @@
             ]
         },
         {
-            "firstName": null,
-            "lastName": null,
+            "firstName": "",
+            "lastName": "",
             "phoneNumbers": [
                 {
                     "number": "5559876543",
@@ -204,15 +204,15 @@
             ]
         },
         {
-            "firstName": null,
-            "lastName": null,
+            "firstName": "",
+            "lastName": "",
             "phoneNumbers": [],
             "addresses": [
                 {
                     "street1": "1600 Pennsylvania Avenue NW",
-                    "street2": null,
+                    "street2": "",
                     "city": "Washington, D.C.",
-                    "state": null,
+                    "state": "",
                     "zipCode": "20500",
                     "label": "work"
                 }

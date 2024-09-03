@@ -3,7 +3,9 @@ import 'package:contacts_app/core/data/objectbox/contact_objectbox_source.dart';
 import 'package:contacts_app/core/data/objectbox/generated/objectbox.g.dart';
 import 'package:contacts_app/core/data/objectbox/objectbox.dart';
 import 'package:contacts_app/core/repository/contact_repository.dart';
+import 'package:contacts_app/core/use_case/create_contact_use_case.dart';
 import 'package:contacts_app/core/use_case/watch_contacts_use_case.dart';
+import 'package:contacts_app/presentation/screen/contact_creation/bloc/contact_creation_bloc.dart';
 import 'package:contacts_app/presentation/screen/contact_list/bloc/contact_list_bloc.dart';
 import 'package:logger/logger.dart';
 
@@ -30,7 +32,11 @@ class SimpleDi {
 
   WatchContactsUseCase getWatchContactsUseCase() =>
       WatchContactsUseCase(contactRepository);
+  CreateContactUseCase getCreateContactUseCase() =>
+      CreateContactUseCase(contactRepository);
 
   ContactListBloc getContactListBloc() =>
       ContactListBloc(getLogger(), getWatchContactsUseCase());
+  ContactCreationBloc getContactCreationBloc() =>
+      ContactCreationBloc(getLogger(), getCreateContactUseCase());
 }

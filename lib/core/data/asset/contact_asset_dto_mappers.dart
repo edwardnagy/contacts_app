@@ -11,9 +11,9 @@ extension ContactAssetDtoMappers on ContactAssetDto {
       firstName: firstName,
       lastName: lastName,
       phoneNumbers: phoneNumbers
-          ?.map((phoneNumber) => phoneNumber.toPhoneNumber())
+          .map((phoneNumber) => phoneNumber.toPhoneNumber())
           .toList(),
-      addresses: addresses?.map((address) => address.toAddress()).toList(),
+      addresses: addresses.map((address) => address.toAddress()).toList(),
     );
   }
 }

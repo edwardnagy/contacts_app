@@ -23,7 +23,7 @@ class ContactListItem extends StatelessWidget {
         TextSpan(
           children: [
             // Name is preferred over phone number.
-            if (firstName != null) ...[
+            if (contact.firstName.isNotEmpty) ...[
               TextSpan(
                 text: firstName,
                 style: TextStyle(
@@ -34,8 +34,8 @@ class ContactListItem extends StatelessWidget {
                 ),
               ),
             ],
-            if (lastName != null) ...[
-              if (contact.firstName != null) const TextSpan(text: ' '),
+            if (contact.lastName.isNotEmpty) ...[
+              if (contact.firstName.isNotEmpty) const TextSpan(text: ' '),
               TextSpan(
                 text: lastName,
                 style: TextStyle(
@@ -46,7 +46,7 @@ class ContactListItem extends StatelessWidget {
                 ),
               ),
             ],
-            if (firstName == null && lastName == null) ...[
+            if (firstName.isEmpty && lastName.isEmpty) ...[
               // Phone number is used as a fallback.
               if (phoneNumber != null) ...[
                 TextSpan(
