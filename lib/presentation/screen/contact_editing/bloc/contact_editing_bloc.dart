@@ -76,7 +76,13 @@ class ContactEditingBloc
 
   Future<void> _onSaveRequested(Emitter<ContactEditingState> emit) async {
     emit(state.copyWith(updateStatus: ContactUpdateStatus.inProgress));
-    final contactUpdate = _getContactUpdateFromState();
+    final contactUpdate = ContactUpdate(
+      id: contactId,
+      firstName: state.firstName,
+      lastName: state.lastName,
+      phoneNumbers: state.effectivePhoneNumbers,
+      addresses: state.effectiveAddresses,
+    );
     final updateContactResult = await _updateContactUseCase(contactUpdate);
     switch (updateContactResult) {
       case ResultSuccess():
@@ -113,15 +119,5 @@ class ContactEditingBloc
           deletionStatus: ContactDeletionStatus.failure,
         ));
     }
-  }
-
-  ContactUpdate _getContactUpdateFromState() {
-    return ContactUpdate(
-      id: contactId,
-      firstName: state.firstName,
-      lastName: state.lastName,
-      phoneNumbers: state.phoneNumbers,
-      addresses: state.addresses,
-    );
   }
 }

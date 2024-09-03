@@ -42,11 +42,20 @@ final class ContactEditingState with EquatableMixin {
   final ContactUpdateStatus updateStatus;
   final ContactDeletionStatus deletionStatus;
 
+  /// Only non-empty phone numbers will be saved.
+  List<PhoneNumber> get effectivePhoneNumbers =>
+      phoneNumbers.where((phoneNumber) => phoneNumber.isNotEmpty).toList();
+
+  /// Only non-empty addresses will be saved.
+  List<Address> get effectiveAddresses =>
+      addresses.where((address) => address.isNotEmpty).toList();
+
   bool get _isAnyChangeMade {
     return initialFirstName != firstName ||
         initialLastName != lastName ||
-        !const ListEquality().equals(initialPhoneNumbers, phoneNumbers) ||
-        !const ListEquality().equals(initialAddresses, addresses);
+        !const ListEquality()
+            .equals(initialPhoneNumbers, effectivePhoneNumbers) ||
+        !const ListEquality().equals(initialAddresses, effectiveAddresses);
   }
 
   bool get _isAnyFieldFilled {
