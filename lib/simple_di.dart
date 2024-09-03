@@ -1,6 +1,6 @@
-import 'package:contacts_app/core/data/contact_local_source.dart';
-import 'package:contacts_app/core/data/objectbox/object_box.dart';
-import 'package:contacts_app/core/data/objectbox/objectbox.g.dart';
+import 'package:contacts_app/core/data/objectbox/contact_objectbox_source.dart';
+import 'package:contacts_app/core/data/objectbox/generated/objectbox.g.dart';
+import 'package:contacts_app/core/data/objectbox/objectbox.dart';
 import 'package:contacts_app/core/repository/contact_repository.dart';
 import 'package:logger/logger.dart';
 
@@ -12,7 +12,8 @@ class SimpleDi {
 
   static Store get store => ObjectBox.instance.store;
 
-  static ContactLocalSource get contactLocalSource => ContactLocalSource(store);
+  static ContactObjectboxSource get contactLocalSource =>
+      ContactObjectboxSource(store);
 
   static final ContactRepository contactRepository =
       ContactRepository(logger, contactLocalSource);

@@ -1,6 +1,6 @@
 import 'package:contacts_app/core/model/address.dart';
 import 'package:contacts_app/core/model/phone_number.dart';
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
 
 @immutable
 class ContactDetail {

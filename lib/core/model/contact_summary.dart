@@ -1,5 +1,5 @@
 import 'package:contacts_app/core/model/contact_sort_field_type.dart';
-import 'package:flutter/foundation.dart';
+import 'package:meta/meta.dart';
 
 @immutable
 class ContactSummary {

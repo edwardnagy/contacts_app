@@ -1,4 +1,4 @@
-import 'package:contacts_app/core/data/contact_local_source.dart';
+import 'package:contacts_app/core/data/objectbox/contact_objectbox_source.dart';
 import 'package:contacts_app/core/model/address.dart';
 import 'package:contacts_app/core/model/contact_create.dart';
 import 'package:contacts_app/core/model/contact_detail.dart';
@@ -9,7 +9,7 @@ import 'package:logger/logger.dart';
 
 class ContactRepository {
   final Logger _logger;
-  final ContactLocalSource _contactLocalSource;
+  final ContactObjectboxSource _contactLocalSource;
 
   ContactRepository(this._logger, this._contactLocalSource) {
     _initialize();

@@ -1,20 +1,20 @@
 import 'package:collection/collection.dart';
-import 'package:contacts_app/core/data/contact_mappers.dart';
+import 'package:contacts_app/core/data/objectbox/contact_objectbox_mappers.dart';
 import 'package:contacts_app/core/data/objectbox/entity/contact_entity.dart';
 import 'package:contacts_app/core/data/objectbox/entity/contact_metadata_entity.dart';
+import 'package:contacts_app/core/data/objectbox/generated/objectbox.g.dart';
 import 'package:contacts_app/core/model/contact_create.dart';
 import 'package:contacts_app/core/model/contact_detail.dart';
 import 'package:contacts_app/core/model/contact_sort_field_type.dart';
 import 'package:contacts_app/core/model/contact_summary.dart';
-import 'package:contacts_app/core/data/objectbox/objectbox.g.dart';
 
-class ContactLocalSource {
+class ContactObjectboxSource {
   final Store _store;
 
   Box<ContactEntity> get _contactBox => _store.box();
   Box<ContactMetadataEntity> get _contactMetadataBox => _store.box();
 
-  ContactLocalSource(
+  ContactObjectboxSource(
     this._store,
   );
 

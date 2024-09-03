@@ -1,5 +1,5 @@
+import 'package:contacts_app/core/data/objectbox/objectbox.dart';
 import 'package:contacts_app/presentation/l10n/app_localizations.dart';
-import 'package:contacts_app/core/data/objectbox/object_box.dart';
 import 'package:contacts_app/presentation/router/router.dart';
 import 'package:flutter/cupertino.dart';
 
