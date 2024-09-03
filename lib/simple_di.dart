@@ -3,6 +3,8 @@ import 'package:contacts_app/core/data/objectbox/contact_objectbox_source.dart';
 import 'package:contacts_app/core/data/objectbox/generated/objectbox.g.dart';
 import 'package:contacts_app/core/data/objectbox/objectbox.dart';
 import 'package:contacts_app/core/repository/contact_repository.dart';
+import 'package:contacts_app/core/use_case/watch_contacts_use_case.dart';
+import 'package:contacts_app/presentation/screen/contact_list/bloc/contact_list_bloc.dart';
 import 'package:logger/logger.dart';
 
 /// A simple dependency injection container.
@@ -15,14 +17,20 @@ class SimpleDi {
     await contactRepository.initialize();
   }
 
-  Logger get logger => Logger();
+  Logger getLogger() => Logger();
 
-  Store get store => ObjectBox.instance.store;
-  ContactObjectboxSource get contactLocalSource =>
-      ContactObjectboxSource(store);
+  Store getStore() => ObjectBox.instance.store;
+  ContactObjectboxSource getContactLocalSource() =>
+      ContactObjectboxSource(getStore());
 
-  ContactAssetSource get contactAssetSource => ContactAssetSource();
+  ContactAssetSource getContactAssetSource() => ContactAssetSource();
 
-  late final ContactRepository contactRepository =
-      ContactRepository(logger, contactLocalSource, contactAssetSource);
+  late final ContactRepository contactRepository = ContactRepository(
+      getLogger(), getContactLocalSource(), getContactAssetSource());
+
+  WatchContactsUseCase getWatchContactsUseCase() =>
+      WatchContactsUseCase(contactRepository);
+
+  ContactListBloc getContactListBloc() =>
+      ContactListBloc(getLogger(), getWatchContactsUseCase());
 }

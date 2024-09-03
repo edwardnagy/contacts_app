@@ -1,8 +1,9 @@
 import 'package:contacts_app/core/model/contact_sort_field_type.dart';
+import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
 
 @immutable
-final class ContactSummary {
+final class ContactSummary with EquatableMixin {
   final String id;
   final String? firstName;
   final String? lastName;
@@ -18,4 +19,8 @@ final class ContactSummary {
     required this.phoneNumber,
     required this.sortFieldType,
   });
+
+  @override
+  List<Object?> get props =>
+      [id, firstName, lastName, phoneNumber, sortFieldType];
 }

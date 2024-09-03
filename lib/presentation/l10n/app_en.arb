@@ -16,6 +16,10 @@
     "@edit": {
         "description": "The label for the edit button."
     },
+    "retry": "Retry",
+    "@retry": {
+        "description": "The label for the retry button."
+    },
     "contacts": "Contacts",
     "@contacts": {
         "description": "The title of the contacts screen."
@@ -23,6 +27,10 @@
     "noContacts": "No Contacts",
     "@noContacts": {
         "description": "The message to display when there are no contacts."
+    },
+    "errorLoadingContacts": "Error loading contacts",
+    "@errorLoadingContacts": {
+        "description": "The message to display when there is an error while loading contacts."
     },
     "noName": "No Name",
     "@noName": {
