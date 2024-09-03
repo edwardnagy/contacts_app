@@ -21,13 +21,13 @@ class ContactEditingScreen extends StatelessWidget {
       create: (context) =>
           SimpleDi.instance.getContactEditingBloc(contactId: contactId)
             ..add(const ContactEditingExistingDataRequested()),
-      child: _ContactEditingForm(contactId: contactId),
+      child: _ContactEditingView(contactId: contactId),
     );
   }
 }
 
-class _ContactEditingForm extends StatelessWidget {
-  const _ContactEditingForm({required this.contactId});
+class _ContactEditingView extends StatelessWidget {
+  const _ContactEditingView({required this.contactId});
 
   final String contactId;
 

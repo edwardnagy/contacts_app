@@ -1,26 +1,26 @@
 part of 'contact_list_bloc.dart';
 
-enum ContactListStatus { idle, loading, success, failure }
-
 final class ContactListState with EquatableMixin {
   const ContactListState({
-    this.status = ContactListStatus.idle,
+    this.loadStatus = ContactListStatus.idle,
     this.contacts = const <ContactSummary>[],
   });
 
-  final ContactListStatus status;
+  final ContactListStatus loadStatus;
   final List<ContactSummary> contacts;
 
   ContactListState copyWith({
-    ContactListStatus? status,
+    ContactListStatus? loadStatus,
     List<ContactSummary>? contacts,
   }) {
     return ContactListState(
-      status: status ?? this.status,
+      loadStatus: loadStatus ?? this.loadStatus,
       contacts: contacts ?? this.contacts,
     );
   }
 
   @override
-  List<Object> get props => [status, contacts];
+  List<Object> get props => [loadStatus, contacts];
 }
+
+enum ContactListStatus { idle, loading, success, failure }

@@ -107,7 +107,7 @@ final class ContactObjectboxSource {
     return contactDetail;
   }
 
-  Stream<ContactDetail> watchContactDetail(String contactId) {
+  Stream<ContactDetail> watchContact(String contactId) {
     return _contactBox
         .query(ContactEntity_.guid.equals(contactId))
         .watch(triggerImmediately: true)

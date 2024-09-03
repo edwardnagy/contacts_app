@@ -54,7 +54,7 @@ class ContactRepository {
   }
 
   Stream<ContactDetail> watchContact(String contactId) {
-    return _contactLocalSource.watchContactDetail(contactId);
+    return _contactLocalSource.watchContact(contactId);
   }
 
   Future<void> updateContact(ContactUpdate contact) {

@@ -1,14 +1,16 @@
 import 'package:collection/collection.dart';
-import 'package:contacts_app/presentation/l10n/app_localizations.dart';
 import 'package:contacts_app/core/model/address.dart';
 import 'package:contacts_app/core/model/phone_number.dart';
+import 'package:contacts_app/presentation/l10n/app_localizations.dart';
 import 'package:contacts_app/presentation/router/routes.dart';
-import 'package:contacts_app/simple_di.dart';
+import 'package:contacts_app/presentation/screen/contact_detail/bloc/contact_detail_bloc.dart';
 import 'package:contacts_app/presentation/style/app_text_style.dart';
 import 'package:contacts_app/presentation/style/spacing.dart';
+import 'package:contacts_app/simple_di.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ContactDetailScreen extends StatefulWidget {
+class ContactDetailScreen extends StatelessWidget {
   const ContactDetailScreen({
     super.key,
     required this.contactId,
@@ -25,14 +27,6 @@ class ContactDetailScreen extends StatefulWidget {
   /// The last name of the contact, required for the animation of the navigation
   /// bar title.
   final String? lastName;
-
-  @override
-  State<ContactDetailScreen> createState() => _ContactDetailScreenState();
-}
-
-class _ContactDetailScreenState extends State<ContactDetailScreen> {
-  // TODO: Use a BLoC with a use case to manage the contacts.
-  final _contactRepository = SimpleDi.instance.contactRepository;
 
   CupertinoListTile _phoneNumberTile(
     BuildContext context,
@@ -100,65 +94,119 @@ class _ContactDetailScreenState extends State<ContactDetailScreen> {
     );
   }
 
+  Widget _errorView(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            AppLocalizations.of(context).errorLoadingContact,
+            style: AppTextStyle.titleMedium(context),
+          ),
+          const SizedBox(height: Spacing.x2),
+          CupertinoButton(
+            onPressed: () {
+              context
+                  .read<ContactDetailBloc>()
+                  .add(const ContactDetailRequested());
+            },
+            child: Container(
+              padding: const EdgeInsets.symmetric(
+                horizontal: Spacing.x2,
+                vertical: Spacing.x1,
+              ),
+              decoration: BoxDecoration(
+                border: Border.all(
+                  color: CupertinoColors.secondaryLabel.resolveFrom(context),
+                  width: 1,
+                ),
+                borderRadius: BorderRadius.circular(4),
+              ),
+              child: Text(
+                AppLocalizations.of(context).retry,
+                style: TextStyle(
+                  color: CupertinoColors.secondaryLabel.resolveFrom(context),
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _contentView(BuildContext context, ContactDetailLoadSuccess state) {
+    return ListView(
+      children: [
+        if (state.contact.phoneNumbers.isNotEmpty)
+          CupertinoListSection.insetGrouped(
+            margin: const EdgeInsets.symmetric(
+              horizontal: Spacing.x1,
+            ).copyWith(
+              top: Spacing.x2,
+            ),
+            additionalDividerMargin: 0,
+            children: state.contact.phoneNumbers
+                .map((phoneNumber) => _phoneNumberTile(context, phoneNumber))
+                .toList(),
+          ),
+        if (state.contact.addresses.isNotEmpty)
+          CupertinoListSection.insetGrouped(
+            margin: const EdgeInsets.symmetric(
+              horizontal: Spacing.x1,
+            ).copyWith(
+              top: Spacing.x2,
+            ),
+            additionalDividerMargin: 0,
+            children: state.contact.addresses
+                .map((address) => _addressTile(context, address))
+                .toList(),
+          ),
+        const SizedBox(height: Spacing.x4),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder(
-      stream: _contactRepository.watchContact(widget.contactId),
-      builder: (context, snapshot) {
-        final contact = snapshot.data;
-        final (phoneNumbers, addresses) =
-            (contact?.phoneNumbers, contact?.addresses);
-
-        return CupertinoPageScaffold(
-          backgroundColor:
-              CupertinoColors.systemGroupedBackground.resolveFrom(context),
-          navigationBar: CupertinoNavigationBar(
-            middle: Text(
-              [
-                contact?.firstName ?? widget.firstName,
-                contact?.lastName ?? widget.lastName,
-              ].whereNotNull().whereNotEmpty().join(' '),
+    return BlocProvider(
+      create: (context) =>
+          SimpleDi.instance.getContactDetailBloc(contactId: contactId)
+            ..add(const ContactDetailRequested()),
+      child: BlocBuilder<ContactDetailBloc, ContactDetailState>(
+        builder: (context, state) {
+          final firstName = state is ContactDetailLoadSuccess
+              ? state.contact.firstName
+              : this.firstName;
+          final lastName = state is ContactDetailLoadSuccess
+              ? state.contact.lastName
+              : this.lastName;
+          return CupertinoPageScaffold(
+            backgroundColor:
+                CupertinoColors.systemGroupedBackground.resolveFrom(context),
+            navigationBar: CupertinoNavigationBar(
+              middle: Text(
+                [firstName, lastName].whereNotNull().whereNotEmpty().join(' '),
+              ),
+              trailing: CupertinoButton(
+                padding: EdgeInsets.zero,
+                child: Text(AppLocalizations.of(context).edit),
+                onPressed: () {
+                  ContactEditingRoute(contactId: contactId).go(context);
+                },
+              ),
             ),
-            trailing: CupertinoButton(
-              padding: EdgeInsets.zero,
-              child: Text(AppLocalizations.of(context).edit),
-              onPressed: () {
-                ContactEditingRoute(contactId: widget.contactId).go(context);
-              },
-            ),
-          ),
-          child: ListView(
-            children: [
-              if (phoneNumbers != null && phoneNumbers.isNotEmpty)
-                CupertinoListSection.insetGrouped(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: Spacing.x1,
-                  ).copyWith(
-                    top: Spacing.x2,
-                  ),
-                  additionalDividerMargin: 0,
-                  children: phoneNumbers
-                      .map((phoneNumber) =>
-                          _phoneNumberTile(context, phoneNumber))
-                      .toList(),
+            child: switch (state) {
+              ContactDetailInitial() => const SizedBox(),
+              ContactDetailLoadInProgress() => const Center(
+                  child: CupertinoActivityIndicator(),
                 ),
-              if (addresses != null && addresses.isNotEmpty)
-                CupertinoListSection.insetGrouped(
-                  margin: const EdgeInsets.symmetric(
-                    horizontal: Spacing.x1,
-                  ).copyWith(
-                    top: Spacing.x2,
-                  ),
-                  additionalDividerMargin: 0,
-                  children: addresses
-                      .map((address) => _addressTile(context, address))
-                      .toList(),
-                ),
-              const SizedBox(height: Spacing.x4),
-            ],
-          ),
-        );
-      },
+              ContactDetailLoadFailure() => _errorView(context),
+              ContactDetailLoadSuccess() => _contentView(context, state),
+            },
+          );
+        },
+      ),
     );
   }
 }

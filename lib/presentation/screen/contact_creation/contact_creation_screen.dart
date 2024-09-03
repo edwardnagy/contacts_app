@@ -15,13 +15,13 @@ class ContactCreationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => SimpleDi.instance.getContactCreationBloc(),
-      child: const _ContactCreationForm(),
+      child: const _ContactCreationView(),
     );
   }
 }
 
-class _ContactCreationForm extends StatelessWidget {
-  const _ContactCreationForm();
+class _ContactCreationView extends StatelessWidget {
+  const _ContactCreationView();
 
   void _showExitAndDiscardChangesConfirmationDialog(
     BuildContext context, {

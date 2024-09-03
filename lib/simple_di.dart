@@ -7,8 +7,10 @@ import 'package:contacts_app/core/use_case/create_contact_use_case.dart';
 import 'package:contacts_app/core/use_case/delete_contact_use_case.dart';
 import 'package:contacts_app/core/use_case/get_contact_use_case.dart';
 import 'package:contacts_app/core/use_case/update_contact_use_case.dart';
+import 'package:contacts_app/core/use_case/watch_contact_use_case.dart';
 import 'package:contacts_app/core/use_case/watch_contacts_use_case.dart';
 import 'package:contacts_app/presentation/screen/contact_creation/bloc/contact_creation_bloc.dart';
+import 'package:contacts_app/presentation/screen/contact_detail/bloc/contact_detail_bloc.dart';
 import 'package:contacts_app/presentation/screen/contact_editing/bloc/contact_editing_bloc.dart';
 import 'package:contacts_app/presentation/screen/contact_list/bloc/contact_list_bloc.dart';
 import 'package:logger/logger.dart';
@@ -38,6 +40,8 @@ class SimpleDi {
       CreateContactUseCase(contactRepository);
   GetContactUseCase getGetContactUseCase() =>
       GetContactUseCase(contactRepository);
+  WatchContactUseCase getWatchContactUseCase() =>
+      WatchContactUseCase(contactRepository);
   WatchContactsUseCase getWatchContactsUseCase() =>
       WatchContactsUseCase(contactRepository);
   UpdateContactUseCase getUpdateContactUseCase() =>
@@ -47,6 +51,12 @@ class SimpleDi {
 
   ContactListBloc getContactListBloc() =>
       ContactListBloc(getLogger(), getWatchContactsUseCase());
+  ContactDetailBloc getContactDetailBloc({required String contactId}) =>
+      ContactDetailBloc(
+        getLogger(),
+        getWatchContactUseCase(),
+        contactId: contactId,
+      );
   ContactCreationBloc getContactCreationBloc() =>
       ContactCreationBloc(getLogger(), getCreateContactUseCase());
   ContactEditingBloc getContactEditingBloc({required String contactId}) =>

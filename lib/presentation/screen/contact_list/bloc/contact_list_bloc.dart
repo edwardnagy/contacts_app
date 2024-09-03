@@ -32,14 +32,14 @@ class ContactListBloc extends Bloc<ContactListEvent, ContactListState> {
       ContactSortFieldType.firstName,
       ContactSortFieldType.phoneNumber,
     ];
-    emit(state.copyWith(status: ContactListStatus.loading));
+    emit(state.copyWith(loadStatus: ContactListStatus.loading));
     return emit.forEach(
       _watchContactsUseCase(sortFieldsPrioritized),
       onData: (result) {
         switch (result) {
           case ResultSuccess():
             return state.copyWith(
-              status: ContactListStatus.success,
+              loadStatus: ContactListStatus.success,
               contacts: result.data,
             );
           case ResultFailure():
@@ -49,7 +49,7 @@ class ContactListBloc extends Bloc<ContactListEvent, ContactListState> {
               stackTrace: result.stackTrace,
             );
             return state.copyWith(
-              status: ContactListStatus.failure,
+              loadStatus: ContactListStatus.failure,
             );
         }
       },

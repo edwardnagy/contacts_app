@@ -142,7 +142,7 @@ class _ContactListScreenState extends State<ContactListScreen> {
           BlocBuilder<ContactListBloc, ContactListState>(
             bloc: _bloc,
             builder: (context, state) {
-              switch (state.status) {
+              switch (state.loadStatus) {
                 case ContactListStatus.idle:
                   return const SliverFillRemaining();
                 case ContactListStatus.loading:
