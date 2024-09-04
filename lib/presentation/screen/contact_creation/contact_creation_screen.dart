@@ -8,20 +8,15 @@ import 'package:contacts_app/simple_di.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ContactCreationScreen extends StatelessWidget {
+class ContactCreationScreen extends StatefulWidget {
   const ContactCreationScreen({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => SimpleDi.instance.getContactCreationBloc(),
-      child: const _ContactCreationView(),
-    );
-  }
+  State<ContactCreationScreen> createState() => _ContactCreationScreenState();
 }
 
-class _ContactCreationView extends StatelessWidget {
-  const _ContactCreationView();
+class _ContactCreationScreenState extends State<ContactCreationScreen> {
+  final _bloc = SimpleDi.instance.getContactCreationBloc();
 
   void _showExitAndDiscardChangesConfirmationDialog(
     BuildContext context, {
@@ -97,6 +92,7 @@ class _ContactCreationView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ContactCreationBloc, ContactCreationState>(
+      bloc: _bloc,
       listenWhen: (previous, current) {
         return previous.creationStatus != current.creationStatus;
       },
@@ -112,9 +108,7 @@ class _ContactCreationView extends StatelessWidget {
             _showSaveErrorDialog(
               context,
               onTryAgain: () {
-                context
-                    .read<ContactCreationBloc>()
-                    .add(const ContactCreationSaveRequested());
+                _bloc.add(const ContactCreationSaveRequested());
               },
             );
           default:
@@ -154,9 +148,7 @@ class _ContactCreationView extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 onPressed: state.isAnyFieldFilled
                     ? () {
-                        context
-                            .read<ContactCreationBloc>()
-                            .add(const ContactCreationSaveRequested());
+                        _bloc.add(const ContactCreationSaveRequested());
                       }
                     : null,
                 child: Text(AppLocalizations.of(context).done),
@@ -166,27 +158,19 @@ class _ContactCreationView extends StatelessWidget {
               autofocus: true,
               firstName: state.firstName,
               onFirstNameChanged: (value) {
-                context
-                    .read<ContactCreationBloc>()
-                    .add(ContactCreationFirstNameChanged(value));
+                _bloc.add(ContactCreationFirstNameChanged(value));
               },
               lastName: state.lastName,
               onLastNameChanged: (value) {
-                context
-                    .read<ContactCreationBloc>()
-                    .add(ContactCreationLastNameChanged(value));
+                _bloc.add(ContactCreationLastNameChanged(value));
               },
               phoneNumbers: state.phoneNumbers,
               onPhoneNumbersChanged: (value) {
-                context
-                    .read<ContactCreationBloc>()
-                    .add(ContactCreationPhoneNumbersChanged(value));
+                _bloc.add(ContactCreationPhoneNumbersChanged(value));
               },
               addresses: state.addresses,
               onAddressesChanged: (value) {
-                context
-                    .read<ContactCreationBloc>()
-                    .add(ContactCreationAddressesChanged(value));
+                _bloc.add(ContactCreationAddressesChanged(value));
               },
             ),
           ),

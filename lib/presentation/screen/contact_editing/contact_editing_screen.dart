@@ -10,26 +10,25 @@ import 'package:contacts_app/simple_di.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class ContactEditingScreen extends StatelessWidget {
+class ContactEditingScreen extends StatefulWidget {
   const ContactEditingScreen({super.key, required this.contactId});
 
   final String contactId;
 
   @override
-  Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) =>
-          SimpleDi.instance.getContactEditingBloc(contactId: contactId)
-            ..add(const ContactEditingExistingDataRequested()),
-      child: _ContactEditingView(contactId: contactId),
-    );
-  }
+  State<ContactEditingScreen> createState() => _ContactEditingScreenState();
 }
 
-class _ContactEditingView extends StatelessWidget {
-  const _ContactEditingView({required this.contactId});
+class _ContactEditingScreenState extends State<ContactEditingScreen> {
+  late final _bloc = SimpleDi.instance
+      .getContactEditingBloc(contactId: widget.contactId)
+    ..add(const ContactEditingExistingDataRequested());
 
-  final String contactId;
+  @override
+  void dispose() {
+    _bloc.close();
+    super.dispose();
+  }
 
   void _showExitAndDiscardChangesConfirmationDialog(
     BuildContext context, {
@@ -174,9 +173,7 @@ class _ContactEditingView extends StatelessWidget {
         const SizedBox(height: Spacing.x2),
         CupertinoButton(
           onPressed: () {
-            context
-                .read<ContactEditingBloc>()
-                .add(const ContactEditingExistingDataRequested());
+            _bloc.add(const ContactEditingExistingDataRequested());
           },
           child: Container(
             padding: const EdgeInsets.symmetric(
@@ -206,35 +203,25 @@ class _ContactEditingView extends StatelessWidget {
     return ContactDataForm(
       firstName: state.firstName,
       onFirstNameChanged: (value) {
-        context
-            .read<ContactEditingBloc>()
-            .add(ContactEditingFirstNameChanged(value));
+        _bloc.add(ContactEditingFirstNameChanged(value));
       },
       lastName: state.lastName,
       onLastNameChanged: (value) {
-        context
-            .read<ContactEditingBloc>()
-            .add(ContactEditingLastNameChanged(value));
+        _bloc.add(ContactEditingLastNameChanged(value));
       },
       phoneNumbers: state.phoneNumbers,
       onPhoneNumbersChanged: (value) {
-        context
-            .read<ContactEditingBloc>()
-            .add(ContactEditingPhoneNumbersChanged(value));
+        _bloc.add(ContactEditingPhoneNumbersChanged(value));
       },
       addresses: state.addresses,
       onAddressesChanged: (value) {
-        context
-            .read<ContactEditingBloc>()
-            .add(ContactEditingAddressesChanged(value));
+        _bloc.add(ContactEditingAddressesChanged(value));
       },
       onDeletePressed: () {
         _showDeletionConfirmationDialog(
           context,
           onDeletionConfirmed: () {
-            context
-                .read<ContactEditingBloc>()
-                .add(const ContactEditingDeleteRequested());
+            _bloc.add(const ContactEditingDeleteRequested());
           },
         );
       },
@@ -244,6 +231,7 @@ class _ContactEditingView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<ContactEditingBloc, ContactEditingState>(
+      bloc: _bloc,
       listenWhen: (previous, current) {
         return previous.updateStatus != current.updateStatus ||
             previous.deletionStatus != current.deletionStatus;
@@ -252,7 +240,7 @@ class _ContactEditingView extends StatelessWidget {
         switch (state.updateStatus) {
           case ContactUpdateStatus.success:
             ContactDetailRoute(
-              contactId: contactId,
+              contactId: widget.contactId,
               firstName: state.firstName,
               lastName: state.lastName,
             ).go(context);
@@ -260,9 +248,7 @@ class _ContactEditingView extends StatelessWidget {
             _showUpdateErrorDialog(
               context,
               onTryAgain: () {
-                context
-                    .read<ContactEditingBloc>()
-                    .add(const ContactEditingSaveRequested());
+                _bloc.add(const ContactEditingSaveRequested());
               },
             );
           default:
@@ -275,9 +261,7 @@ class _ContactEditingView extends StatelessWidget {
             _showDeletionErrorDialog(
               context,
               onTryAgain: () {
-                context
-                    .read<ContactEditingBloc>()
-                    .add(const ContactEditingDeleteRequested());
+                _bloc.add(const ContactEditingDeleteRequested());
               },
             );
           default:
@@ -315,9 +299,7 @@ class _ContactEditingView extends StatelessWidget {
                 padding: EdgeInsets.zero,
                 onPressed: state.isSavingEnabled
                     ? () {
-                        context
-                            .read<ContactEditingBloc>()
-                            .add(const ContactEditingSaveRequested());
+                        _bloc.add(const ContactEditingSaveRequested());
                       }
                     : null,
                 child: Text(AppLocalizations.of(context).done),
