@@ -18,7 +18,8 @@ class ContactListBloc extends Bloc<ContactListEvent, ContactListState> {
   ) : super(const ContactListState()) {
     on<ContactListEvent>(
       (event, emit) => switch (event) {
-        ContactListSubscriptionRequested() => _onSubscriptionRequested(emit),
+        ContactListRequested() =>
+          _onContactsRequested(emit, searchQuery: event.searchQuery),
       },
     );
   }
@@ -26,15 +27,21 @@ class ContactListBloc extends Bloc<ContactListEvent, ContactListState> {
   final Logger _logger;
   final WatchContactsUseCase _watchContactsUseCase;
 
-  Future<void> _onSubscriptionRequested(Emitter<ContactListState> emit) {
+  Future<void> _onContactsRequested(
+    Emitter<ContactListState> emit, {
+    required String searchQuery,
+  }) {
     const sortFieldsPrioritized = [
       ContactSortFieldType.lastName,
       ContactSortFieldType.firstName,
       ContactSortFieldType.phoneNumber,
     ];
-    emit(state.copyWith(loadStatus: ContactListStatus.loading));
+    emit(state.copyWith(
+      loadStatus: ContactListStatus.loading,
+      searchQuery: searchQuery,
+    ));
     return emit.forEach(
-      _watchContactsUseCase(sortFieldsPrioritized),
+      _watchContactsUseCase(sortFieldsPrioritized, searchQuery: searchQuery),
       onData: (result) {
         switch (result) {
           case ResultSuccess():

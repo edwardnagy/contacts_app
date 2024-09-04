@@ -44,9 +44,13 @@ class ContactRepository {
   }
 
   Stream<List<ContactSummary>> watchContacts(
-    List<ContactSortFieldType> sortFieldTypes,
-  ) {
-    return _contactLocalSource.watchContacts(sortFieldTypes: sortFieldTypes);
+    List<ContactSortFieldType> sortFieldTypes, {
+    required String searchQuery,
+  }) {
+    return _contactLocalSource.watchContacts(
+      sortFieldTypes: sortFieldTypes,
+      searchQuery: searchQuery,
+    );
   }
 
   Future<ContactDetail> getContact(String id) {

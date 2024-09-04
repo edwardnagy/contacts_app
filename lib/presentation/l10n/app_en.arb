@@ -16,6 +16,10 @@
     "@edit": {
         "description": "The label for the edit button."
     },
+    "search": "Search",
+    "@search": {
+        "description": "The placeholder for the search field."
+    },
     "retry": "Retry",
     "@retry": {
         "description": "The label for the retry button."
@@ -147,5 +151,13 @@
     "deleteContactErrorMessage": "An error occurred while deleting the contact. Please try again.",
     "@deleteContactErrorMessage": {
         "description": "The message of the error dialog when deleting a contact fails."
+    },
+    "noResultsForSearch": "No results for “{search}”",
+    "@noResultsForSearch": {
+        "description": "The message to display when there are no results for the search query."
+    },
+    "noResultsDescription": "Check the spelling or try a new search.",
+    "@noResultsDescription": {
+        "description": "The description to display when there are no results for the search query."
     }
 }

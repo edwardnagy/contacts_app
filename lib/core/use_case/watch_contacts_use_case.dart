@@ -9,8 +9,14 @@ class WatchContactsUseCase {
   WatchContactsUseCase(this._contactRepository);
 
   Stream<Result<List<ContactSummary>>> call(
-    List<ContactSortFieldType> sortFieldTypes,
-  ) {
-    return Result.fromStream(_contactRepository.watchContacts(sortFieldTypes));
+    List<ContactSortFieldType> sortFieldTypes, {
+    required String searchQuery,
+  }) {
+    return Result.fromStream(
+      _contactRepository.watchContacts(
+        sortFieldTypes,
+        searchQuery: searchQuery,
+      ),
+    );
   }
 }

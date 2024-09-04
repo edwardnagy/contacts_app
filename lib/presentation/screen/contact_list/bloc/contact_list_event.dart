@@ -7,6 +7,11 @@ sealed class ContactListEvent with EquatableMixin {
   List<Object> get props => [];
 }
 
-final class ContactListSubscriptionRequested extends ContactListEvent {
-  const ContactListSubscriptionRequested();
+final class ContactListRequested extends ContactListEvent {
+  const ContactListRequested({this.searchQuery = ''});
+
+  final String searchQuery;
+
+  @override
+  List<Object> get props => [searchQuery];
 }

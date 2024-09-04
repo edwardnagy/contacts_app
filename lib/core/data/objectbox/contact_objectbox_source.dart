@@ -54,15 +54,19 @@ final class ContactObjectboxSource {
   /// Contacts without a sort field will be placed at the end of the list.
   Stream<List<ContactSummary>> watchContacts({
     required List<ContactSortFieldType> sortFieldTypes,
+    required String searchQuery,
   }) {
     return _contactBox
         .query()
         .watch(triggerImmediately: true)
         .map((query) => query.find())
         .map((contactEntities) {
+      final filteredEntities =
+          _filterContactEntitiesBySearchQuery(contactEntities, searchQuery);
+
       // Map each contact's ID to the first non-empty sort field
       final sortFieldByContactId = <int, _ContactSortField?>{
-        for (var contactEntity in contactEntities)
+        for (var contactEntity in filteredEntities)
           contactEntity.id: sortFieldTypes
               .map((fieldType) => (
                     type: fieldType,
@@ -73,7 +77,7 @@ final class ContactObjectboxSource {
       };
 
       // Sort the contact entities based on the sort fields
-      final sortedEntities = contactEntities.sorted((a, b) {
+      final sortedEntities = filteredEntities.sorted((a, b) {
         final aSortField = sortFieldByContactId[a.id];
         final bSortField = sortFieldByContactId[b.id];
 
@@ -97,6 +101,24 @@ final class ContactObjectboxSource {
 
       return summaries;
     });
+  }
+
+  List<ContactEntity> _filterContactEntitiesBySearchQuery(
+    List<ContactEntity> contactEntities,
+    String searchQuery,
+  ) {
+    if (searchQuery.isEmpty) return contactEntities;
+
+    final searchWords = searchQuery.toLowerCase().split(' ');
+    return contactEntities.where((contactEntity) {
+      final contactWords = [
+        contactEntity.firstName.toLowerCase(),
+        contactEntity.lastName.toLowerCase(),
+        ...contactEntity.phoneNumbers.map((e) => e.number.toLowerCase()),
+      ];
+      return searchWords.every((searchWord) =>
+          contactWords.any((contactWord) => contactWord.contains(searchWord)));
+    }).toList();
   }
 
   Future<ContactDetail> getContact(String id) async {
