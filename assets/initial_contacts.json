@@ -1,0 +1,222 @@
+{
+    "contacts": [
+        {
+            "firstName": "John",
+            "lastName": "Appleseed",
+            "phoneNumbers": [
+                {
+                    "number": "8885555512",
+                    "label": "mobile"
+                },
+                {
+                    "number": "8885551212",
+                    "label": "home"
+                }
+            ],
+            "addresses": [
+                {
+                    "street1": "3494 Kuhl Avenue",
+                    "street2": "",
+                    "city": "Atlanta",
+                    "state": "GA",
+                    "zipCode": "30303",
+                    "label": "work"
+                },
+                {
+                    "street1": "1234 Laurel Street",
+                    "street2": "",
+                    "city": "Atlanta",
+                    "state": "GA",
+                    "zipCode": "30303",
+                    "label": "home"
+                }
+            ]
+        },
+        {
+            "firstName": "Kate",
+            "lastName": "Bell",
+            "phoneNumbers": [
+                {
+                    "number": "5555648583",
+                    "label": "mobile"
+                },
+                {
+                    "number": "4155553695",
+                    "label": "main"
+                }
+            ],
+            "addresses": [
+                {
+                    "street1": "165 Davis Street",
+                    "street2": "",
+                    "city": "Hillsborough",
+                    "state": "CA",
+                    "zipCode": "94010",
+                    "label": "work"
+                }
+            ]
+        },
+        {
+            "firstName": "Anna",
+            "lastName": "Haro",
+            "phoneNumbers": [
+                {
+                    "number": "5555228243",
+                    "label": "home"
+                }
+            ],
+            "addresses": [
+                {
+                    "street1": "1001 Leavenworth Street",
+                    "street2": "",
+                    "city": "Sausalito",
+                    "state": "CA",
+                    "zipCode": "94965",
+                    "label": "home"
+                }
+            ]
+        },
+        {
+            "firstName": "Daniel",
+            "lastName": "Higgins",
+            "phoneNumbers": [
+                {
+                    "number": "5554787672",
+                    "label": "home"
+                },
+                {
+                    "number": "4085555270",
+                    "label": "mobile"
+                },
+                {
+                    "number": "4085553514",
+                    "label": "home"
+                }
+            ],
+            "addresses": [
+                {
+                    "street1": "332 Laguna Street",
+                    "street2": "",
+                    "city": "Corte Madera",
+                    "state": "CA",
+                    "zipCode": "94925",
+                    "label": "home"
+                }
+            ]
+        },
+        {
+            "firstName": "David",
+            "lastName": "Taylor",
+            "phoneNumbers": [
+                {
+                    "number": "5556106679",
+                    "label": "home"
+                }
+            ],
+            "addresses": [
+                {
+                    "street1": "1747 Steuart Street",
+                    "street2": "",
+                    "city": "Tiburon",
+                    "state": "CA",
+                    "zipCode": "94920",
+                    "label": "home"
+                }
+            ]
+        },
+        {
+            "firstName": "Hank M.",
+            "lastName": "Zakroff",
+            "phoneNumbers": [
+                {
+                    "number": "5557664823",
+                    "label": "work"
+                },
+                {
+                    "number": "7075551854",
+                    "label": "other"
+                }
+            ],
+            "addresses": [
+                {
+                    "street1": "1741 Kearny Street",
+                    "street2": "",
+                    "city": "San Rafael",
+                    "state": "CA",
+                    "zipCode": "94901",
+                    "label": "work"
+                }
+            ]
+        },
+        {
+            "firstName": "",
+            "lastName": "Doe",
+            "phoneNumbers": [
+                {
+                    "number": "5551234567",
+                    "label": "mobile"
+                }
+            ],
+            "addresses": [
+                {
+                    "street1": "123 Main Street",
+                    "street2": "Apt 4B",
+                    "city": "Anytown",
+                    "state": "CA",
+                    "zipCode": "12345",
+                    "label": "home"
+                }
+            ]
+        },
+        {
+            "firstName": "",
+            "lastName": "",
+            "phoneNumbers": [
+                {
+                    "number": "5559876543",
+                    "label": "work"
+                }
+            ],
+            "addresses": [
+                {
+                    "street1": "456 Elm Street",
+                    "street2": "Suite 200",
+                    "city": "Somecity",
+                    "state": "NY",
+                    "zipCode": "54321",
+                    "label": "work"
+                }
+            ]
+        },
+        {
+            "firstName": "Jane",
+            "lastName": "Smith",
+            "phoneNumbers": [],
+            "addresses": [
+                {
+                    "street1": "789 Oak Avenue",
+                    "street2": "Suite 12",
+                    "city": "Otherville",
+                    "state": "TX",
+                    "zipCode": "67890",
+                    "label": "home"
+                }
+            ]
+        },
+        {
+            "firstName": "",
+            "lastName": "",
+            "phoneNumbers": [],
+            "addresses": [
+                {
+                    "street1": "1600 Pennsylvania Avenue NW",
+                    "street2": "",
+                    "city": "Washington, D.C.",
+                    "state": "",
+                    "zipCode": "20500",
+                    "label": "work"
+                }
+            ]
+        }
+    ]
+}

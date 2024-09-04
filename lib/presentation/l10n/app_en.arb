@@ -1,0 +1,163 @@
+{
+    "@@locale": "en",
+    "cancel": "Cancel",
+    "@cancel": {
+        "description": "The label for the cancel button."
+    },
+    "done": "Done",
+    "@done": {
+        "description": "The label for the done button."
+    },
+    "delete": "Delete",
+    "@delete": {
+        "description": "The label for the delete button."
+    },
+    "edit": "Edit",
+    "@edit": {
+        "description": "The label for the edit button."
+    },
+    "search": "Search",
+    "@search": {
+        "description": "The placeholder for the search field."
+    },
+    "retry": "Retry",
+    "@retry": {
+        "description": "The label for the retry button."
+    },
+    "tryAgain": "Try Again",
+    "@tryAgain": {
+        "description": "The label for the try again button."
+    },
+    "discardChanges": "Discard Changes",
+    "@discardChanges": {
+        "description": "The label for the discard changes button."
+    },
+    "keepEditing": "Keep Editing",
+    "@keepEditing": {
+        "description": "The label for the keep editing button."
+    },
+    "contacts": "Contacts",
+    "@contacts": {
+        "description": "The title of the contacts screen."
+    },
+    "noContacts": "No Contacts",
+    "@noContacts": {
+        "description": "The message to display when there are no contacts."
+    },
+    "errorLoadingContacts": "Error loading contacts",
+    "@errorLoadingContacts": {
+        "description": "The message to display when there is an error while loading contacts."
+    },
+    "errorLoadingContact": "Error loading contact",
+    "@errorLoadingContact": {
+        "description": "The message to display when there is an error while loading a contact."
+    },
+    "noName": "No Name",
+    "@noName": {
+        "description": "The name to display when the contact has no name."
+    },
+    "newContact": "New Contact",
+    "@newContact": {
+        "description": "The title of the new contact screen."
+    },
+    "deleteContact": "Delete Contact",
+    "@deleteContact": {
+        "description": "The label for the delete contact button."
+    },
+    "firstNamePlaceholder": "First name",
+    "@firstNamePlaceholder": {
+        "description": "The placeholder for the first name field."
+    },
+    "lastNamePlaceholder": "Last name",
+    "@lastNamePlaceholder": {
+        "description": "The placeholder for the last name field."
+    },
+    "labelPickerTitle": "Label",
+    "@labelPickerTitle": {
+        "description": "The title of the phone label picker."
+    },
+    "labelMobile": "mobile",
+    "@labelMobile": {
+        "description": "The label for the mobile phone number."
+    },
+    "labelHome": "home",
+    "@labelHome": {
+        "description": "The label for the home phone number or address."
+    },
+    "labelWork": "work",
+    "@labelWork": {
+        "description": "The label for the work phone number or address."
+    },
+    "labelOther": "other",
+    "@labelOther": {
+        "description": "The label for the other phone number or address."
+    },
+    "addPhone": "add phone",
+    "@addPhone": {
+        "description": "The label for the add phone button."
+    },
+    "phonePlaceholder": "Phone",
+    "@phonePlaceholder": {
+        "description": "The placeholder for the phone field."
+    },
+    "addAddress": "add address",
+    "@addAddress": {
+        "description": "The label for the add address button."
+    },
+    "streetPlaceholder": "Street",
+    "@streetPlaceholder": {
+        "description": "The placeholder for the street field."
+    },
+    "cityPlaceholder": "City",
+    "@cityPlaceholder": {
+        "description": "The placeholder for the city field."
+    },
+    "statePlaceholder": "State",
+    "@statePlaceholder": {
+        "description": "The placeholder for the state field."
+    },
+    "zipCodePlaceholder": "Postcode",
+    "@zipCodePlaceholder": {
+        "description": "The placeholder for the ZIP code field."
+    },
+    "saveContactErrorTitle": "Error Saving Contact",
+    "@saveContactErrorTitle": {
+        "description": "The title of the error dialog when saving a contact fails."
+    },
+    "saveContactErrorMessage": "An error occurred while saving the contact. Please try again.",
+    "@saveContactErrorMessage": {
+        "description": "The message of the error dialog when saving a contact fails."
+    },
+    "newContactExitConfirmationMessage": "Are you sure you want to discard this new contact?",
+    "@newContactExitConfirmationMessage": {
+        "description": "The message of the exit confirmation dialog when creating a new contact."
+    },
+    "editContactExitConfirmationMessage": "Are you sure you want to discard your changes?",
+    "@editContactExitConfirmationMessage": {
+        "description": "The message of the exit confirmation dialog when editing a contact."
+    },
+    "editContactErrorTitle": "Error Editing Contact",
+    "@editContactErrorTitle": {
+        "description": "The title of the error dialog when editing a contact fails."
+    },
+    "editContactErrorMessage": "An error occurred while editing the contact. Please try again.",
+    "@editContactErrorMessage": {
+        "description": "The message of the error dialog when editing a contact fails."
+    },
+    "deleteContactErrorTitle": "Error Deleting Contact",
+    "@deleteContactErrorTitle": {
+        "description": "The title of the error dialog when deleting a contact fails."
+    },
+    "deleteContactErrorMessage": "An error occurred while deleting the contact. Please try again.",
+    "@deleteContactErrorMessage": {
+        "description": "The message of the error dialog when deleting a contact fails."
+    },
+    "noResultsForSearch": "No results for “{search}”",
+    "@noResultsForSearch": {
+        "description": "The message to display when there are no results for the search query."
+    },
+    "noResultsDescription": "Check the spelling or try a new search.",
+    "@noResultsDescription": {
+        "description": "The description to display when there are no results for the search query."
+    }
+}
