@@ -1,9 +1,8 @@
-import 'dart:async';
-
 import 'package:contacts_app/presentation/l10n/app_localizations.dart';
 import 'package:contacts_app/presentation/router/routes.dart';
 import 'package:contacts_app/presentation/screen/contact_creation/bloc/contact_creation_bloc.dart';
 import 'package:contacts_app/presentation/shared/contact_data_form/contact_data_form.dart';
+import 'package:contacts_app/presentation/shared/widgets/confirmation_dialog.dart';
 import 'package:contacts_app/simple_di.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -17,47 +16,6 @@ class ContactCreationScreen extends StatefulWidget {
 
 class _ContactCreationScreenState extends State<ContactCreationScreen> {
   final _bloc = SimpleDi.instance.getContactCreationBloc();
-
-  void _showExitAndDiscardChangesConfirmationDialog(
-    BuildContext context, {
-    required void Function(Future dialogClosingFuture) onExitConfirmed,
-  }) {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (context) => CupertinoActionSheet(
-        message: Text(
-          AppLocalizations.of(context).newContactExitConfirmationMessage,
-        ),
-        actions: <Widget>[
-          CupertinoActionSheetAction(
-            isDestructiveAction: true,
-            onPressed: () {
-              Navigator.pop(context);
-
-              // Transition duration used in the modal popup.
-              // See _kModalPopupTransitionDuration: https://github.com/flutter/flutter/blob/6fe09872b12acb5747d6e01e84987120cabf31df/packages/flutter/lib/src/cupertino/route.dart
-              const modalPopupTransitionDuration = Duration(milliseconds: 335);
-              // Completer that will be completed when the dialog closing
-              // animation is finished.
-              final dialogClosingCompleter = Completer();
-              Future.delayed(modalPopupTransitionDuration).then((_) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  dialogClosingCompleter.complete();
-                });
-              });
-              onExitConfirmed(dialogClosingCompleter.future);
-            },
-            child: Text(AppLocalizations.of(context).discardChanges),
-          )
-        ],
-        cancelButton: CupertinoActionSheetAction(
-          isDefaultAction: true,
-          onPressed: () => Navigator.pop(context),
-          child: Text(AppLocalizations.of(context).keepEditing),
-        ),
-      ),
-    );
-  }
 
   void _showSaveErrorDialog(
     BuildContext context, {
@@ -122,9 +80,18 @@ class _ContactCreationScreenState extends State<ContactCreationScreen> {
           onPopInvokedWithResult: (didPop, result) {
             if (!didPop) {
               // pop was prevented, show confirmation dialog
-              _showExitAndDiscardChangesConfirmationDialog(
+              ConfirmationDialog.show(
                 context,
-                onExitConfirmed: (dialogClosingFuture) async {
+                message: Text(
+                  AppLocalizations.of(context)
+                      .newContactExitConfirmationMessage,
+                ),
+                isConfirmationActionDestructive: true,
+                confirmationActionTitle:
+                    Text(AppLocalizations.of(context).discardChanges),
+                cancelActionTitle:
+                    Text(AppLocalizations.of(context).keepEditing),
+                onConfirmation: (dialogClosingFuture) async {
                   await dialogClosingFuture;
                   if (!context.mounted) return;
                   Navigator.pop(context, result);

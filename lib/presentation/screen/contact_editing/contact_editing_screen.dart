@@ -1,9 +1,8 @@
-import 'dart:async';
-
 import 'package:contacts_app/presentation/l10n/app_localizations.dart';
 import 'package:contacts_app/presentation/router/routes.dart';
 import 'package:contacts_app/presentation/screen/contact_editing/bloc/contact_editing_bloc.dart';
 import 'package:contacts_app/presentation/shared/contact_data_form/contact_data_form.dart';
+import 'package:contacts_app/presentation/shared/widgets/confirmation_dialog.dart';
 import 'package:contacts_app/presentation/style/app_text_style.dart';
 import 'package:contacts_app/presentation/style/spacing.dart';
 import 'package:contacts_app/simple_di.dart';
@@ -28,73 +27,6 @@ class _ContactEditingScreenState extends State<ContactEditingScreen> {
   void dispose() {
     _bloc.close();
     super.dispose();
-  }
-
-  void _showExitAndDiscardChangesConfirmationDialog(
-    BuildContext context, {
-    required void Function(Future dialogClosingFuture) onExitConfirmed,
-  }) {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (context) => CupertinoActionSheet(
-        message: Text(
-          AppLocalizations.of(context).editContactExitConfirmationMessage,
-        ),
-        actions: <Widget>[
-          CupertinoActionSheetAction(
-            isDestructiveAction: true,
-            onPressed: () {
-              Navigator.pop(context);
-
-              // Transition duration used in the modal popup.
-              // See _kModalPopupTransitionDuration: https://github.com/flutter/flutter/blob/6fe09872b12acb5747d6e01e84987120cabf31df/packages/flutter/lib/src/cupertino/route.dart
-              const modalPopupTransitionDuration = Duration(milliseconds: 335);
-              // Completer that will be completed when the dialog closing
-              // animation is finished.
-              final dialogClosingCompleter = Completer();
-              Future.delayed(modalPopupTransitionDuration).then((_) {
-                WidgetsBinding.instance.addPostFrameCallback((_) {
-                  dialogClosingCompleter.complete();
-                });
-              });
-              onExitConfirmed(dialogClosingCompleter.future);
-            },
-            child: Text(AppLocalizations.of(context).discardChanges),
-          )
-        ],
-        cancelButton: CupertinoActionSheetAction(
-          isDefaultAction: true,
-          onPressed: () => Navigator.pop(context),
-          child: Text(AppLocalizations.of(context).keepEditing),
-        ),
-      ),
-    );
-  }
-
-  void _showDeletionConfirmationDialog(
-    BuildContext context, {
-    required VoidCallback onDeletionConfirmed,
-  }) {
-    showCupertinoModalPopup(
-      context: context,
-      builder: (context) => CupertinoActionSheet(
-        actions: <Widget>[
-          CupertinoActionSheetAction(
-            isDestructiveAction: true,
-            onPressed: () {
-              Navigator.pop(context);
-              onDeletionConfirmed();
-            },
-            child: Text(AppLocalizations.of(context).deleteContact),
-          )
-        ],
-        cancelButton: CupertinoActionSheetAction(
-          isDefaultAction: true,
-          onPressed: () => Navigator.pop(context),
-          child: Text(AppLocalizations.of(context).cancel),
-        ),
-      ),
-    );
   }
 
   void _showUpdateErrorDialog(
@@ -218,9 +150,14 @@ class _ContactEditingScreenState extends State<ContactEditingScreen> {
         _bloc.add(ContactEditingAddressesChanged(value));
       },
       onDeletePressed: () {
-        _showDeletionConfirmationDialog(
+        ConfirmationDialog.show(
           context,
-          onDeletionConfirmed: () {
+          isConfirmationActionDestructive: true,
+          confirmationActionTitle:
+              Text(AppLocalizations.of(context).deleteContact),
+          cancelActionTitle: Text(AppLocalizations.of(context).cancel),
+          onConfirmation: (dialogClosingFuture) async {
+            await dialogClosingFuture;
             _bloc.add(const ContactEditingDeleteRequested());
           },
         );
@@ -274,9 +211,18 @@ class _ContactEditingScreenState extends State<ContactEditingScreen> {
           onPopInvokedWithResult: (didPop, result) {
             if (!didPop) {
               // pop was prevented, show confirmation dialog
-              _showExitAndDiscardChangesConfirmationDialog(
+              ConfirmationDialog.show(
                 context,
-                onExitConfirmed: (dialogClosingFuture) async {
+                message: Text(
+                  AppLocalizations.of(context)
+                      .editContactExitConfirmationMessage,
+                ),
+                isConfirmationActionDestructive: false,
+                confirmationActionTitle:
+                    Text(AppLocalizations.of(context).discardChanges),
+                cancelActionTitle:
+                    Text(AppLocalizations.of(context).keepEditing),
+                onConfirmation: (dialogClosingFuture) async {
                   await dialogClosingFuture;
                   if (!context.mounted) return;
                   Navigator.pop(context, result);

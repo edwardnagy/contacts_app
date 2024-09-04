@@ -124,7 +124,7 @@
     "@saveContactErrorMessage": {
         "description": "The message of the error dialog when saving a contact fails."
     },
-    "newContactExitConfirmationMessage": "Are you sure you want to discard this contact?",
+    "newContactExitConfirmationMessage": "Are you sure you want to discard this new contact?",
     "@newContactExitConfirmationMessage": {
         "description": "The message of the exit confirmation dialog when creating a new contact."
     },
