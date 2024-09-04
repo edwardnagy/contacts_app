@@ -17,6 +17,12 @@ class ContactCreationScreen extends StatefulWidget {
 class _ContactCreationScreenState extends State<ContactCreationScreen> {
   final _bloc = SimpleDi.instance.getContactCreationBloc();
 
+  @override
+  void dispose() {
+    _bloc.close();
+    super.dispose();
+  }
+
   void _showSaveErrorDialog(
     BuildContext context, {
     required VoidCallback onTryAgain,
