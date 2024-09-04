@@ -6,6 +6,8 @@ Contacts app based on the design of the iOS native Contacts app.
 
 **Flutter version:** 3.24.1
 
+Entry point: `lib/main.dart`
+
 ## Architecture
 
 The app utilizes a [Clean Architecture](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html) approach, separating concerns into distinct layers.
